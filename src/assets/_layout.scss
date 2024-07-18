@@ -1,3 +1,18 @@
-.app-container {
-  background-color: #333;
+.main-layout {
+  display: grid;
+  grid-template-rows: 64px 1fr;
+  grid-template-columns: 150px 1fr;
+  min-height: 100vh;
+  & > {
+    height: 100%;
+  }
+}
+.sidebar {
+  background-color: white;
+  grid-column: 1;
+  grid-row: 2;
+}
+.navbar {
+  grid-column: 1/-1;
+  background-color: purple;
 }

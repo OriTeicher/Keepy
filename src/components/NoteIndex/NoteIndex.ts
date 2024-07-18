@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'note-index',
   standalone: true,
   imports: [CommonModule],
-  template: `<p>NoteIndex works!</p>`,
+  templateUrl: './NoteIndex.html',
   styleUrl: './NoteIndex.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

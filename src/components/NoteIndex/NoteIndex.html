@@ -1,8 +1,4 @@
-<section class="note-index">
-  <ul class="note-list">
-    <li *ngFor="let note of notes" class="note-preview" [ngStyle]="{'background-color': note.color}">
-      <h2>{{note.title}}</h2>
-      <h4>{{note.createdAt}}</h4>
-    </li>
-  </ul>
-</section>
+<div *ngFor="let note of notes" class="note-preview" [ngStyle]="{'background-color': note.color}">
+  <h2>{{note.title}}</h2>
+  <h4>{{note.createdAt}}</h4>
+</div>

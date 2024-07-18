@@ -9,6 +9,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './Navbar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavbarComponent {
-  links = ['Home', 'My Notes', 'About'];
-}
+export class NavbarComponent {}
