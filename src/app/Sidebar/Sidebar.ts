@@ -9,7 +9,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './Sidebar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SiderbarComponent {
+export class SidebarComponent {
   links = [
     { label: 'Notes', svg: 'NoteSvg' },
     { label: 'Notes', svg: 'NoteSvg' },

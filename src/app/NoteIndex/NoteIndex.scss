@@ -1,0 +1,12 @@
+:host {
+  .note-preview {
+    break-inside: avoid;
+    padding: 10px;
+    border-radius: 5px;
+    height: fit-content;
+    min-height: 200px;
+    margin-block-end: 8px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+      rgba(209, 213, 219, 0.527) 0px 0px 0px 1px inset;
+  }
+}

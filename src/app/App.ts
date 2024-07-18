@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from '../components/Navbar/Navbar';
-import { NoteIndexComponent } from '../components/NoteIndex/NoteIndex';
-import { SiderbarComponent } from '../components/Siderbar/Sidebar';
+import { NavbarComponent } from './Navbar/Navbar';
+import { NoteIndexComponent } from './NoteIndex/NoteIndex';
+import { SidebarComponent } from './Sidebar/Sidebar';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +11,8 @@ import { SiderbarComponent } from '../components/Siderbar/Sidebar';
     RouterOutlet,
     NoteIndexComponent,
     NavbarComponent,
-    SiderbarComponent,
-    SiderbarComponent,
+    SidebarComponent,
+    SidebarComponent,
   ],
   templateUrl: './App.html',
   styleUrl: './App.scss',
