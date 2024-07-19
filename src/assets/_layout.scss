@@ -1,7 +1,7 @@
 .main-layout {
   display: grid;
   grid-template-rows: 64px 1fr;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: auto 1fr;
   transition: grid-template-columns 0.2s ease-in-out;
   min-height: 100vh;
   & > {
@@ -31,6 +31,8 @@
 
 // ?sidebar
 .sidebar {
+  width: 200px;
+  transition: transform 0.4s ease-in;
   background-color: #2e2e2ec0;
   color: #fff;
   position: sticky;
@@ -40,6 +42,9 @@
   max-height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
+  p {
+    opacity: 1;
+  }
   .sidebar-link {
     padding: $inline-space;
     display: grid;
@@ -63,4 +68,15 @@
   grid-column: 2;
   overflow: auto;
   height: fit-content;
+  transition: transform 0.4s ease-in;
+}
+.closed {
+  transform: translateX(-80%);
+}
+.opened {
+  transform: translateX(0%);
+}
+
+.closed-index {
+  transform: translateX(-160px);
 }

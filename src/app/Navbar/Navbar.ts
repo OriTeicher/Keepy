@@ -6,6 +6,7 @@ import {
   Output,
 } from '@angular/core';
 import { heroBars4, heroUserCircle } from '@ng-icons/heroicons/outline';
+import { MenuService } from '../_services/menu-service.service';
 
 @Component({
   selector: 'navbar',
@@ -17,10 +18,11 @@ import { heroBars4, heroUserCircle } from '@ng-icons/heroicons/outline';
   viewProviders: [provideIcons({ heroBars4, heroUserCircle })],
 })
 export class NavbarComponent {
+  constructor(private menuService: MenuService) {}
+  loggedInUser = { username: 'OriT5799' };
   isMenuOpen = true;
   @Output() toggleMenuClick = new EventEmitter<boolean>();
   handleToggleMenu() {
-    console.log('toggle');
-    this.toggleMenuClick.emit(false);
+    this.menuService.toggleMenu();
   }
 }

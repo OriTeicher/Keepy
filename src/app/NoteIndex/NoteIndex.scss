@@ -7,6 +7,9 @@
     border-radius: $main-border-radius;
     height: fit-content;
     min-height: 200px;
+    max-height: fit-content;
+
+    overflow: auto;
     margin-block-end: $notes-space;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
       rgba(209, 213, 219, 0.527) 0px 0px 0px 1px inset;

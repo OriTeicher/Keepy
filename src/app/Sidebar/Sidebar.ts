@@ -7,6 +7,7 @@ import {
   heroHashtagSolid,
   heroArchiveBoxXMarkSolid,
 } from '@ng-icons/heroicons/solid';
+import { MenuService } from '../_services/menu-service.service';
 
 @Component({
   selector: 'sidebar',
@@ -24,9 +25,9 @@ import {
   styleUrls: ['./Sidebar.scss', '../../main.scss'],
 })
 export class SidebarComponent {
-  @Input() isMenuOpen = false;
+  constructor(private router: Router, public menuService: MenuService) {}
 
-  loggedInUser = { username: 'OriT5799' };
+  @Input() isMenuOpen = true;
   selectedRoute = 'notes';
   links = [
     { label: 'Notes', svg: 'heroPencilSolid', route: 'notes' },
@@ -38,5 +39,4 @@ export class SidebarComponent {
     this.selectedRoute = route;
     this.router.navigate([route]);
   }
-  constructor(private router: Router) {}
 }

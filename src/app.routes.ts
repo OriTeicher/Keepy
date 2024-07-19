@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { NoteIndexComponent } from './app/NoteIndex/NoteIndex';
 import { LabelsEditorComponent } from './app/LabelsEditor/LabelsEditor';
-import { BinComponent } from './app/Bin/Bin';
+import { BinComponent } from './app/NotesBin/Bin';
 
 export const routes: Routes = [
   { path: 'labels', component: LabelsEditorComponent },

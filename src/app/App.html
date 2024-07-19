@@ -1,7 +1,9 @@
 <main class="app-container main-layout">
   <navbar class="navbar"></navbar>
-  <main class="note-index content-container">
+  <main class="note-index content-container"
+    [ngClass]="{'open-index': (menuService.menuOpen$ | async),  'closed-index': !(menuService.menuOpen$ | async)}">
     <router-outlet></router-outlet>
   </main>
-  <sidebar class="sidebar"></sidebar>
+  <sidebar [ngClass]="{'open': (menuService.menuOpen$ | async),  'closed': !(menuService.menuOpen$ | async)}"
+    class="sidebar"></sidebar>
 </main>

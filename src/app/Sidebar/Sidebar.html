@@ -1,7 +1,7 @@
 @for (link of links; track link) {
 <div class="sidebar-link" [ngClass]="{'selected': selectedRoute === link.route}"
   (click)="handleRouteSelect(link.route)">
-  <p *ngIf="isMenuOpen">{{link.label}}</p>
+  <p>{{link.label}}</p>
   <ng-icon [name]="link.svg"></ng-icon>
 </div>
 }

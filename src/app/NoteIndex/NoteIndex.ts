@@ -39,12 +39,12 @@ export class NoteIndexComponent {
     {
       title: 'this is a note... '.repeat(20),
       createdAt: '02/05 10:30',
-      color: 'lightseagreen',
+      color: 'lightyellow',
     },
     {
       title: 'this is a note...',
       createdAt: '02/05 10:30',
-      color: 'pink',
+      color: 'lightslategray',
     },
     {
       title: 'this is a note... '.repeat(20),
@@ -54,12 +54,12 @@ export class NoteIndexComponent {
     {
       title: '  this is a note...',
       createdAt: '02/05 10:30',
-      color: 'purple',
+      color: 'salmon',
     },
     {
       title: 'this is a note... '.repeat(10),
       createdAt: '02/05 10:30',
-      color: 'lightgreen',
+      color: 'lightpink',
     },
   ];
 }
