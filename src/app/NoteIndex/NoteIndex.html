@@ -1,7 +1,8 @@
-@for (note of notes; track note.title) {
+@for (note of notes; track note.txt) {
 <div class="note-preview" [ngStyle]="{'backgroundColor': note.color}">
   <h2>{{note.title}}</h2>
-  <h4>{{note.createdAt}}</h4>
+  <h4>{{note.txt}}</h4>
+  <p>{{note.createdAt}}</p>
 </div>
 } @empty {
 <p>no notes...</p>
