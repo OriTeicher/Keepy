@@ -1,0 +1,15 @@
+@use "../../main.scss" as *;
+
+.header-input {
+  width: 40%;
+  padding: 7px 10px;
+  font-size: 20px;
+  border-radius: $main-border-radius;
+  &:focus {
+    background-color: $bgc-001;
+  }
+}
+
+.hamburger-svg {
+  font-size: $svg-font-size;
+}

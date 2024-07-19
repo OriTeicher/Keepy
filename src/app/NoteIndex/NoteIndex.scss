@@ -1,11 +1,13 @@
+@use "../../main.scss" as *;
+
 :host {
   .note-preview {
     break-inside: avoid;
-    padding: 10px;
-    border-radius: 7px;
+    padding: $inline-space;
+    border-radius: $main-border-radius;
     height: fit-content;
     min-height: 200px;
-    margin-block-end: 12px;
+    margin-block-end: $notes-space;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
       rgba(209, 213, 219, 0.527) 0px 0px 0px 1px inset;
   }

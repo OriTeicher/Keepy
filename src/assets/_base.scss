@@ -2,12 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: $font-family-001;
 }
 
 body {
   min-height: 100vh;
   background-color: #272727;
+  font-family: $font-family-001;
 }
 
 ::-webkit-scrollbar {
@@ -18,8 +18,6 @@ input:focus {
   outline: none;
 }
 input {
-  height: 50px;
-  border-radius: 5px;
   border: none;
   padding-inline-start: 10px;
 }
@@ -40,4 +38,8 @@ a {
 
 ul {
   list-style: none;
+}
+
+svg {
+  @include svgStyle;
 }

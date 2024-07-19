@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './NoteIndex.html',
-  styleUrls: ['./NoteIndex.scss'],
+  styleUrls: ['./NoteIndex.scss', '../../main.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoteIndexComponent {
@@ -24,7 +24,7 @@ export class NoteIndexComponent {
     {
       title: '  this is a note...',
       createdAt: '02/05 10:30',
-      color: 'purple',
+      color: 'lightseagreen',
     },
     {
       title: 'this is a note... '.repeat(10),

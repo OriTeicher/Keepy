@@ -1,26 +1,22 @@
-import { Component, NgModule } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
 import { NavbarComponent } from './Navbar/Navbar';
 import { NoteIndexComponent } from './NoteIndex/NoteIndex';
 import { SidebarComponent } from './Sidebar/Sidebar';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { heroUsers } from '@ng-icons/heroicons/outline';
-
+import { LabelsEditorComponent } from './LabelsEditor/LabelsEditor';
+import { RouterModule } from '@angular/router';
 @Component({
-  selector: 'app-root',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    NoteIndexComponent,
-    NavbarComponent,
-    SidebarComponent,
-    SidebarComponent,
-    NgIconComponent,
-  ],
+  selector: 'app-root',
   templateUrl: './App.html',
-  styleUrl: './App.scss',
-  viewProviders: [provideIcons({ heroUsers })],
+  styleUrls: ['./App.scss', '../../src/main.scss'],
+  imports: [
+    NavbarComponent,
+    LabelsEditorComponent,
+    NoteIndexComponent,
+    SidebarComponent,
+    RouterModule,
+  ],
 })
 export class AppComponent {
-  title = 'Googel Keep';
+  title = 'Google Keep';
 }
