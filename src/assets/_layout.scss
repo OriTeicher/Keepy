@@ -6,24 +6,37 @@
   & > {
     height: 100%;
   }
+  z-index: 1;
 }
 
 .sidebar {
+  background-color: #2e2e2ec0;
+  color: #fff;
+  position: sticky;
+  top: 64px;
   grid-column: 1;
   grid-row: 2;
+  max-height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
+  padding-block-start: 10%;
   gap: 3%;
-  margin-block-start: 10px;
-  margin-inline-start: 10px;
+  .sidebar-link {
+    padding: 5px 10px;
+  }
   & > :hover {
-    padding: 0px 8px;
     cursor: pointer;
-    background-color: gray;
+    background-color: #10101065;
   }
 }
 
 .navbar {
+  z-index: 10;
+  position: sticky;
+  top: 0;
+  background-color: #2e2e2ec0;
+  padding-inline-start: 10px;
+  padding-inline-end: 10px;
   grid-column: 1/-1;
   display: flex;
   justify-content: space-between;
@@ -31,10 +44,12 @@
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  color: #fff;
 }
+
 .note-index {
   columns: 5 100px;
-  column-gap: 8px;
+  column-gap: 12px;
   padding: 20px;
   grid-row: 2;
   grid-column: 2;
