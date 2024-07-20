@@ -2,16 +2,41 @@
 
 :host {
   .note-preview {
-    break-inside: avoid;
+    &:hover {
+      cursor: pointer;
+      filter: brightness(90%);
+    }
     padding: $inline-space;
     border-radius: $main-border-radius;
-    height: fit-content;
-    min-height: 200px;
-    max-height: fit-content;
 
+    transition: filter 0.3s;
     overflow: auto;
-    margin-block-end: $notes-space;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
-      rgba(209, 213, 219, 0.527) 0px 0px 0px 1px inset;
+
+    button {
+      opacity: 0.1;
+      position: absolute;
+      right: 0;
+      top: 0px;
+      width: 30px;
+      height: 30px;
+      transition: opacity 0.4s;
+      border: none;
+      background-color: transparent;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.322);
+        color: white;
+        opacity: 1;
+        border-radius: 0 5px 0 5px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.notes-layout {
+  columns: auto 250px;
+  column-gap: $inline-space;
+  .note-preview {
+    margin-block-end: $inline-space;
   }
 }

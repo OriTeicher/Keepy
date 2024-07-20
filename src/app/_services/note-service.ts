@@ -39,6 +39,7 @@ function getDemoNote() {
   const color = colors[Math.floor(Math.random() * colors.length)];
 
   return {
+    _id: makeId(),
     title,
     txt,
     type,
@@ -82,4 +83,9 @@ function getRandomIntInclusive(min: number, max: number): number {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min; // The maximum is inclusive and the minimum is inclusive
+}
+
+function makeId() {
+  const randNum = getRandomIntInclusive(10000, 100000000);
+  return `N-#${randNum}`;
 }

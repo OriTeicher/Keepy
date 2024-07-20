@@ -1,9 +1,13 @@
-@for (note of notes; track note.txt) {
-<div class="note-preview" [ngStyle]="{'backgroundColor': note.color}">
-  <h2>{{note.title}}</h2>
-  <h4>{{note.txt}}</h4>
-  <p>{{note.createdAt}}</p>
-</div>
-} @empty {
-<p>no notes...</p>
-}
+<section class="notes-layout">
+  @for (note of notes; track note.txt) {
+  <div class="note-preview" [ngStyle]="{'backgroundColor': note.color}" style="position: relative;">
+    <button (click)="handleRemoveNote(note._id)">X</button>
+    <h2>{{note.title}}</h2>
+    <h4>{{note.txt}}</h4>
+    <p>{{note.createdAt}}</p>
+    <note-bottom-actions />
+  </div>
+  } @empty {
+  <p>no notes...</p>
+  }
+</section>
