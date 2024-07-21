@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, Input, Output, EventEmitter } from '@angular/core'
 import { NgIconComponent, provideIcons } from '@ng-icons/core'
 import {
   matDeleteForever,
@@ -24,22 +24,25 @@ import {
   styleUrl: './NoteBottomActions.scss',
 })
 export class NoteBottomActionsComponent {
+  @Input() noteId: string | null = null
+  @Output() removeNote = new EventEmitter<string>()
+
   icons = [
     { type: 'remove', svg: 'matDeleteForever' },
-    { type: 'edit', svg: 'matContentCopy' },
+    { type: 'copy', svg: 'matContentCopy' },
     { type: 'color', svg: 'matColorLens' },
     { type: 'img', svg: 'matCropOriginal' },
     { type: 'todo', svg: 'matDone' },
   ]
 
-  handleRemoveNote(noteId: string) {
-    console.log('noteId', noteId)
+  onRemoveNote() {
+    if (this.noteId) this.removeNote.emit(this.noteId)
   }
 
-  handleIconClick(type: string, noteId: string) {
+  handleIconClick(type: string) {
     switch (type) {
       case 'remove':
-        this.handleRemoveNote(noteId)
+        this.onRemoveNote()
         break
     }
   }

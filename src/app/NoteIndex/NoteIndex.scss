@@ -3,6 +3,10 @@
 :host {
   .note-preview {
     position: relative;
+    break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     &:hover {
       cursor: pointer;
       filter: brightness(90%);
@@ -32,18 +36,17 @@
       }
     }
     .icons-container {
+      position: absolute;
+      bottom: 0;
       display: flex;
-      transition: opacity 0.3s;
+      transition: opacity 0.2s ease-in;
       gap: 10px;
+      width: 100%;
+      left: 0;
+      padding: 5px 0px;
       align-items: center;
       justify-content: space-evenly;
-      position: absolute;
-      bottom: 5px;
-      left: 5px;
-      width: 95%;
-      padding: 5px 3px;
       background-color: #ffffff0c;
-      border-radius: 5px;
       outline: 1px solid rgba(0, 0, 0, 0.267);
       opacity: 0;
       &.hover {
@@ -54,7 +57,7 @@
 }
 
 .notes-layout {
-  columns: auto 250px;
+  columns: auto 350px;
   column-gap: $inline-space;
   .note-preview {
     margin-block-end: $inline-space;
