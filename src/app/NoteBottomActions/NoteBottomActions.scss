@@ -1,0 +1,10 @@
+.note-bottom-icons {
+  .note-icon {
+    font-size: 20px;
+    cursor: pointer;
+    &:hover {
+      color: rgb(122, 122, 122);
+      text-shadow: 1px 1px 1px rgb(255, 255, 255);
+    }
+  }
+}

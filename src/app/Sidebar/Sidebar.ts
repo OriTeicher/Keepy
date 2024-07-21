@@ -31,7 +31,7 @@ export class SidebarComponent {
   selectedRoute = 'notes';
   links = [
     { label: 'Notes', svg: 'heroPencilSolid', route: 'notes' },
-    { label: 'Edit Labels', svg: 'heroHashtagSolid', route: 'labels' },
+    { label: 'Labels', svg: 'heroHashtagSolid', route: 'labels' },
     { label: 'Bin', svg: 'heroArchiveBoxXMarkSolid', route: 'bin' },
   ];
 

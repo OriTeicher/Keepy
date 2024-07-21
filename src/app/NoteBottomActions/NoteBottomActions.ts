@@ -1,20 +1,32 @@
 import { Component } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { matDeleteForever } from '@ng-icons/material-icons/baseline';
+import {
+  matDeleteForever,
+  matContentCopy,
+  matColorLens,
+  matCropOriginal,
+} from '@ng-icons/material-icons/baseline';
 @Component({
   selector: 'note-bottom-actions',
   standalone: true,
   imports: [NgIconComponent],
-  viewProviders: [provideIcons({ matDeleteForever })],
+  viewProviders: [
+    provideIcons({
+      matDeleteForever,
+      matContentCopy,
+      matColorLens,
+      matCropOriginal,
+    }),
+  ],
   templateUrl: './NoteBottomActions.html',
   styleUrl: './NoteBottomActions.scss',
 })
 export class NoteBottomActionsComponent {
-  btns = [
-    { type: 'removeNote', svg: matDeleteForever },
-    { type: 'removeNote', svg: matDeleteForever },
-    { type: 'removeNote', svg: matDeleteForever },
-    { type: 'removeNote', svg: matDeleteForever },
+  icons = [
+    { type: 'remove', svg: 'matDeleteForever' },
+    { type: 'edit', svg: 'matContentCopy' },
+    { type: 'color', svg: 'matColorLens' },
+    { type: 'img', svg: 'matCropOriginal' },
   ];
 
   handleAction(type: string) {
