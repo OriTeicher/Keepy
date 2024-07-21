@@ -1,11 +1,11 @@
 <section class="notes-layout">
   @for (note of notes; track note.txt) {
-  <div class="note-preview" [ngStyle]="{'backgroundColor': note.color}" style="position: relative;">
-    <button (click)="handleRemoveNote(note._id)">X</button>
+  <div class="note-preview" [ngStyle]="{'backgroundColor': note.color}" style="position: relative;"
+    (mouseover)="handleMouseOver(note._id)" (mouseout)="handleMouseOut(note._id)">
     <h2>{{note.title}}</h2>
     <h4>{{note.txt}}</h4>
     <p>{{note.createdAt}}</p>
-    <note-bottom-actions />
+    <note-bottom-actions class="icons-container" [ngClass]="{'hover': note.isHovered}" />
   </div>
   } @empty {
   <p>no notes...</p>

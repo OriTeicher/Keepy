@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { Component } from '@angular/core'
+import { NgIconComponent, provideIcons } from '@ng-icons/core'
 import {
   matDeleteForever,
   matContentCopy,
   matColorLens,
   matCropOriginal,
-} from '@ng-icons/material-icons/baseline';
+  matDone,
+} from '@ng-icons/material-icons/baseline'
 @Component({
   selector: 'note-bottom-actions',
   standalone: true,
@@ -16,6 +17,7 @@ import {
       matContentCopy,
       matColorLens,
       matCropOriginal,
+      matDone,
     }),
   ],
   templateUrl: './NoteBottomActions.html',
@@ -27,9 +29,18 @@ export class NoteBottomActionsComponent {
     { type: 'edit', svg: 'matContentCopy' },
     { type: 'color', svg: 'matColorLens' },
     { type: 'img', svg: 'matCropOriginal' },
-  ];
+    { type: 'todo', svg: 'matDone' },
+  ]
 
-  handleAction(type: string) {
-    console.log('action:\n', type);
+  handleRemoveNote(noteId: string) {
+    console.log('noteId', noteId)
+  }
+
+  handleIconClick(type: string, noteId: string) {
+    switch (type) {
+      case 'remove':
+        this.handleRemoveNote(noteId)
+        break
+    }
   }
 }

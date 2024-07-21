@@ -13,8 +13,19 @@ import { NoteBottomActionsComponent } from '../NoteBottomActions/NoteBottomActio
 })
 export class NoteIndexComponent {
   notes: any[] = [];
+
   ngOnInit() {
     this.notes = noteService.getDemoNotes(20);
+  }
+
+  handleMouseOver(noteId: string) {
+    this.notes[this.notes.findIndex((note) => note._id === noteId)].isHovered =
+      true;
+  }
+
+  handleMouseOut(noteId: string) {
+    this.notes[this.notes.findIndex((note) => note._id === noteId)].isHovered =
+      false;
   }
 
   handleRemoveNote(noteId: string) {
