@@ -29,8 +29,8 @@ export class NoteIndexComponent {
       false
   }
 
-  onRemoveNote(noteId: string) {
-    console.log('12', 12)
-    this.notes = this.notes.filter((note) => note._id !== noteId)
+  onNoteAction(action: { noteId: string; type: string }) {
+    console.log('actionType', action.noteId, action.type)
+    this.notes = this.notes.filter((note) => note._id !== action.noteId)
   }
 }

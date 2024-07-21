@@ -25,7 +25,7 @@ import {
 })
 export class NoteBottomActionsComponent {
   @Input() noteId: string | null = null
-  @Output() removeNote = new EventEmitter<string>()
+  @Output() noteAction = new EventEmitter<{ noteId: string; type: string }>()
 
   icons = [
     { type: 'remove', svg: 'matDeleteForever' },
@@ -35,15 +35,7 @@ export class NoteBottomActionsComponent {
     { type: 'todo', svg: 'matDone' },
   ]
 
-  onRemoveNote() {
-    if (this.noteId) this.removeNote.emit(this.noteId)
-  }
-
-  handleIconClick(type: string) {
-    switch (type) {
-      case 'remove':
-        this.onRemoveNote()
-        break
-    }
+  handleNoteAction(type: string) {
+    if (this.noteId) this.noteAction.emit({ noteId: this.noteId, type })
   }
 }
