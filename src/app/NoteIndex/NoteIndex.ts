@@ -8,7 +8,7 @@ import {
   COPY_NOTE_ACTION,
   REMOVE_NOTE_ACTION,
 } from '../_services/consts-service'
-
+import { NoteService } from '../note-service.service'
 @Component({
   selector: 'note-index',
   standalone: true,
@@ -18,14 +18,12 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoteIndexComponent {
+  constructor(private notesService: NoteService) {}
   notes: Note[] = []
 
   ngOnInit() {
     this.notes = noteService.getDemoNotes()
-  }
-
-  get getNotesAmount() {
-    return this.notes.length
+    this.notesService.setNotes(this.notes)
   }
 
   handleMouseOver(noteId: string) {
@@ -40,6 +38,7 @@ export class NoteIndexComponent {
 
   removeNote(noteId: string) {
     this.notes = this.notes.filter((note) => note._id !== noteId)
+    this.notesService.removeNoteById(noteId)
   }
 
   duplicateNote(noteId: string) {
