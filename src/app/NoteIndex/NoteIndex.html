@@ -1,5 +1,5 @@
 <section class="notes-layout">
-  @for (note of notes; track note.txt) {
+  @for (note of notes; track note.title) {
   <div class="note-preview" [ngStyle]="{'backgroundColor': note.color}" style="position: relative;"
     (mouseover)="handleMouseOver(note._id)" (mouseout)="handleMouseOut(note._id)">
     <h2>{{note.title}}</h2>
@@ -7,8 +7,8 @@
     <p>{{note.createdAt}}</p>
     <note-bottom-actions class="icons-container" [ngClass]="{'hover': note.isHovered}" [noteId]="note._id"
       (noteAction)="onNoteAction($event)" />
-  </div>
-  } @empty {
+  </div>}
+  @empty {
   <p style="color: #fff">no notes to display...</p>
   }
 </section>

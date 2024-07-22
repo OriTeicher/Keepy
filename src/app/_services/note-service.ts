@@ -6,24 +6,22 @@ export const noteService = {
   getDemoNote,
 }
 
+// for NODE.JS enviroment
 // server
 // const connectionPool = new Pool({
 //   connectionString,
 // })
-async function getDemoNotes(amount: number): Promise<Note[]> {
-  try {
-    const queryStr = 'SELECT * FROM notes LIMIT $2'
-    let notes: QueryResult | Note[] = await connectionPool.query(queryStr, [2])
-    console.log('notes.rows', notes.rows)
-    if (notes) return notes.rows
-    else notes = []
-    for (let i = 0; i < amount; i++) {
-      notes.push(getDemoNote())
-    }
-    return notes
-  } catch (err) {
-    throw err
+// let notes: QueryResult | Note[] = await connectionPool.query(queryStr, [2])
+// console.log('notes.rows', notes.rows)
+// if (notes) return notes.rows
+// const queryStr = 'SELECT * FROM notes LIMIT $2'
+
+function getDemoNotes(amount: number = 20): Note[] {
+  let notes = []
+  for (let i = 0; i < amount; i++) {
+    notes.push(getDemoNote())
   }
+  return notes
 }
 
 function getDemoNote() {
@@ -89,7 +87,16 @@ function getRandomIntInclusive(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min // The maximum is inclusive and the minimum is inclusive
 }
 
-function makeId() {
+export function makeId() {
   const randNum = getRandomIntInclusive(10000, 100000000)
   return `N-#${randNum}`
+}
+
+export function getRandomColor(): string {
+  const letters = '0123456789ABCDEF'
+  let color = '#'
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)]
+  }
+  return color
 }

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { ChangeDetectionStrategy, Component } from '@angular/core'
-import { noteService } from '../_services/note-service'
+import { getRandomColor, makeId, noteService } from '../_services/note-service'
 import { NoteBottomActionsComponent } from '../NoteBottomActions/NoteBottomActions'
 import { Note } from '../_interfaces/note'
 import {
@@ -20,12 +20,8 @@ import {
 export class NoteIndexComponent {
   notes: Note[] = []
 
-  async ngOnInit() {
-    try {
-      this.notes = (await noteService.getDemoNotes(2)) || []
-    } catch (error) {
-      console.error('Error fetching notes:', error)
-    }
+  ngOnInit() {
+    this.notes = noteService.getDemoNotes()
   }
 
   handleMouseOver(noteId: string) {
@@ -42,16 +38,28 @@ export class NoteIndexComponent {
     this.notes = this.notes.filter((note) => note._id !== noteId)
   }
 
+  duplicateNote(noteId: string) {
+    const noteToCopy = this.notes.find((note) => note._id === noteId)
+    if (!noteToCopy) return
+    const noteCopy: Note = { ...noteToCopy, _id: makeId() }
+    this.notes.unshift(noteCopy)
+  }
+
+  paintNote(noteId: string) {
+    const noteIdx = this.notes.findIndex((note) => note._id === noteId)
+    this.notes[noteIdx].color = getRandomColor()
+  }
+
   onNoteAction(action: { noteId: string; type: string }) {
     switch (action.type) {
       case REMOVE_NOTE_ACTION:
         this.removeNote(action.noteId)
         break
       case COLOR_NOTE_ACTION:
-        console.log('color')
+        this.paintNote(action.noteId)
         break
       case COPY_NOTE_ACTION:
-        console.log('copy')
+        this.duplicateNote(action.noteId)
         break
     }
   }
