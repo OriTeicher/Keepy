@@ -1,24 +1,33 @@
+import { Pool, QueryResult } from 'pg'
+import { Note } from '../_interfaces/note'
+
 export const noteService = {
   getDemoNotes,
   getDemoNote,
 }
 
-function getDemoNotes(amount: number) {
-  const notes = []
-  for (let i = 0; i < amount; i++) {
-    notes.push(getDemoNote())
+// server
+// const connectionPool = new Pool({
+//   connectionString,
+// })
+async function getDemoNotes(amount: number): Promise<Note[]> {
+  try {
+    const queryStr = 'SELECT * FROM notes LIMIT $2'
+    let notes: QueryResult | Note[] = await connectionPool.query(queryStr, [2])
+    console.log('notes.rows', notes.rows)
+    if (notes) return notes.rows
+    else notes = []
+    for (let i = 0; i < amount; i++) {
+      notes.push(getDemoNote())
+    }
+    return notes
+  } catch (err) {
+    throw err
   }
-  return notes
 }
 
 function getDemoNote() {
-  const titles = [
-    'Meeting Notes',
-    'Shopping List',
-    'Project Ideas',
-    'Workout Plan',
-    'Recipe',
-  ]
+  const titles = ['Meeting', 'Shopping', 'Project', 'Workout Plan', 'Recipe']
   const types = ['text', 'todo', 'img', 'video', 'canvas']
   const colors = [
     'salmon',

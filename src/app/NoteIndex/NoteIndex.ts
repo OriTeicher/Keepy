@@ -3,6 +3,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { noteService } from '../_services/note-service'
 import { NoteBottomActionsComponent } from '../NoteBottomActions/NoteBottomActions'
 import { Note } from '../_interfaces/note'
+import {
+  COLOR_NOTE_ACTION,
+  COPY_NOTE_ACTION,
+  REMOVE_NOTE_ACTION,
+} from '../_services/consts-service'
 
 @Component({
   selector: 'note-index',
@@ -15,8 +20,12 @@ import { Note } from '../_interfaces/note'
 export class NoteIndexComponent {
   notes: Note[] = []
 
-  ngOnInit() {
-    this.notes = noteService.getDemoNotes(20)
+  async ngOnInit() {
+    try {
+      this.notes = (await noteService.getDemoNotes(2)) || []
+    } catch (error) {
+      console.error('Error fetching notes:', error)
+    }
   }
 
   handleMouseOver(noteId: string) {
@@ -29,8 +38,21 @@ export class NoteIndexComponent {
       false
   }
 
+  removeNote(noteId: string) {
+    this.notes = this.notes.filter((note) => note._id !== noteId)
+  }
+
   onNoteAction(action: { noteId: string; type: string }) {
-    console.log('actionType', action.noteId, action.type)
-    this.notes = this.notes.filter((note) => note._id !== action.noteId)
+    switch (action.type) {
+      case REMOVE_NOTE_ACTION:
+        this.removeNote(action.noteId)
+        break
+      case COLOR_NOTE_ACTION:
+        console.log('color')
+        break
+      case COPY_NOTE_ACTION:
+        console.log('copy')
+        break
+    }
   }
 }

@@ -1,0 +1,1 @@
+PGPASSWORD=0u7voGulrA6ubWaH6VEXlOvd3XT31DUI psql -h dpg-cqf0loogph6c73b314i0-a.frankfurt-postgres.render.com -U note_db_dx96_user note_db_dx96

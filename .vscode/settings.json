@@ -1,3 +1,22 @@
 {
-  "angular-schematics.angularDisableProjectPathCheck": true
+  "angular-schematics.angularDisableProjectPathCheck": true,
+  "sqltools.connections": [
+    {
+      "pgOptions": {
+        "ssl": {
+          "rejectUnauthorized": false,
+          "requestCert": false
+        }
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "driver": "PostgreSQL",
+      "name": "Google Keep Clone DB",
+      "database": "demo",
+      "username": "orit",
+      "password": "fixyou12345",
+      "connectionTimeout": 30,
+      "connectString": "postgresql://note_db_dx96_user:0u7voGulrA6ubWaH6VEXlOvd3XT31DUI@dpg-cqf0loogph6c73b314i0-a.frankfurt-postgres.render.com/note_db_dx96"
+    }
+  ]
 }
