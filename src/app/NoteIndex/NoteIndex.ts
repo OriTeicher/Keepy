@@ -24,6 +24,10 @@ export class NoteIndexComponent {
     this.notes = noteService.getDemoNotes()
   }
 
+  get getNotesAmount() {
+    return this.notes.length
+  }
+
   handleMouseOver(noteId: string) {
     this.notes[this.notes.findIndex((note) => note._id === noteId)].isHovered =
       true
