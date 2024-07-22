@@ -45,7 +45,7 @@ export class NoteIndexComponent {
     const noteToCopy = this.notes.find((note) => note._id === noteId)
     if (!noteToCopy) return
     const noteCopy: Note = { ...noteToCopy, _id: makeId() }
-    this.notes.unshift(noteCopy)
+    this.notesService.addNote(noteCopy)
   }
 
   paintNote(noteId: string) {

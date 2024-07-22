@@ -5,6 +5,7 @@
     <h2>{{note.title}}</h2>
     <h4>{{note.txt}}</h4>
     <p>{{note.createdAt}}</p>
+    <p>{{note._id}}</p>
     <note-bottom-actions class="icons-container" [ngClass]="{'hover': note.isHovered}" [noteId]="note._id"
       (noteAction)="onNoteAction($event)" />
   </div>}

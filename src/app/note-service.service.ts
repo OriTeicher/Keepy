@@ -12,16 +12,12 @@ export class NoteService {
     this.notesSubject.next(notes)
   }
 
-  // addOrUpdateNote(note: Note) {
-  //   const currentNotes = this.notesSubject.value
-  //   const index = currentNotes.findIndex((n) => n._id === note._id)
-  //   if (index !== -1) {
-  //     currentNotes[index] = note // Update existing note
-  //   } else {
-  //     currentNotes.push(note) // Add new note
-  //   }
-  //   this.notesSubject.next(currentNotes)
-  // }
+  addNote(noteToAdd: Note) {
+    const currentNotes = this.notesSubject.value
+    noteToAdd.isHovered = false
+    currentNotes.unshift(noteToAdd)
+    this.notesSubject.next(currentNotes)
+  }
 
   removeNoteById(noteId: string) {
     const currentNotes = this.notesSubject.value.filter(
