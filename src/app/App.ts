@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import { NavbarComponent } from './Navbar/Navbar';
-import { NoteIndexComponent } from './NoteIndex/NoteIndex';
-import { SidebarComponent } from './Sidebar/Sidebar';
-import { LabelsEditorComponent } from './LabelsEditor/LabelsEditor';
-import { RouterModule } from '@angular/router';
-import { MenuService } from './_services/menu-service.service';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core'
+import { NavbarComponent } from './Navbar/Navbar'
+import { NoteIndexComponent } from './NoteIndex/NoteIndex'
+import { SidebarComponent } from './Sidebar/Sidebar'
+import { LabelsEditorComponent } from './LabelsEditor/LabelsEditor'
+import { RouterModule } from '@angular/router'
+import { MenuService } from './_services/menu.service'
+import { CommonModule } from '@angular/common'
 @Component({
   standalone: true,
   selector: 'app-root',
@@ -21,6 +21,6 @@ import { CommonModule } from '@angular/common';
   ],
 })
 export class AppComponent {
-  title = 'Google Keep';
+  title = 'Google Keep'
   constructor(public menuService: MenuService) {}
 }

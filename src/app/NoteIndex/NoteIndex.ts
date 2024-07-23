@@ -1,18 +1,20 @@
 import { CommonModule } from '@angular/common'
 import { ChangeDetectionStrategy, Component } from '@angular/core'
-import { getRandomColor, makeId, noteService } from '../_services/note-service'
+import { noteService } from '../_services/note.demo.service'
 import { NoteBottomActionsComponent } from '../NoteBottomActions/NoteBottomActions'
-import { Note } from '../_interfaces/note'
+import { Note } from '../_interfaces/Note'
 import {
   COLOR_NOTE_ACTION,
   COPY_NOTE_ACTION,
   REMOVE_NOTE_ACTION,
-} from '../_services/consts-service'
-import { NoteService } from '../note-service.service'
+} from '../_services/actions.service'
+import { NoteService } from '../_services/note.service.service'
+import { ColorPickerComponent } from '../ColorPicker/ColorPicker'
+import { getRandomColor, makeId } from '../_services/util.service'
 @Component({
   selector: 'note-index',
   standalone: true,
-  imports: [CommonModule, NoteBottomActionsComponent],
+  imports: [CommonModule, NoteBottomActionsComponent, ColorPickerComponent],
   templateUrl: './NoteIndex.html',
   styleUrls: ['./NoteIndex.scss', '../../main.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -48,18 +50,18 @@ export class NoteIndexComponent {
     this.notesService.addNote(noteCopy)
   }
 
-  paintNote(noteId: string) {
+  paintNote(color: string, noteId: string) {
     const noteIdx = this.notes.findIndex((note) => note._id === noteId)
-    this.notes[noteIdx].color = getRandomColor()
+    this.notes[noteIdx].color = color
   }
 
-  onNoteAction(action: { noteId: string; type: string }) {
+  onNoteAction(action: { noteId: string; type: string; data?: any }) {
     switch (action.type) {
       case REMOVE_NOTE_ACTION:
         this.removeNote(action.noteId)
         break
       case COLOR_NOTE_ACTION:
-        this.paintNote(action.noteId)
+        this.paintNote(action.data, action.noteId)
         break
       case COPY_NOTE_ACTION:
         this.duplicateNote(action.noteId)

@@ -1,0 +1,8 @@
+<article class="color-picker-container">
+  @for (color of colors; track colors) {
+  <div class="color-item" [style]="{background: color}" (colorSelect)="handleSelectColor(color)"></div>
+  }
+  @for (gradient of gradients; track gradients) {
+  <div class="color-item" [style]="{background: gradient}" (colorSelect)="handleSelectColor(gradient)"></div>
+  }
+</article>

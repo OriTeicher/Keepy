@@ -1,0 +1,26 @@
+.color-picker-container {
+  position: absolute;
+  bottom: 30px;
+  right: 39px;
+  z-index: 10;
+  display: grid;
+  gap: 4px;
+  padding: 5px 15px;
+  border-radius: 30px;
+  grid-template-columns: repeat(6, 1fr);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  .color-item {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+    &:hover {
+      cursor: pointer;
+      filter: brightness(90%);
+    }
+    &.selected,
+    &:hover {
+      outline: 1px solid black;
+    }
+  }
+}

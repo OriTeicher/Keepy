@@ -13,8 +13,8 @@ import {
   heroHashtagSolid,
   heroArchiveBoxXMarkSolid,
 } from '@ng-icons/heroicons/solid'
-import { MenuService } from '../_services/menu-service.service'
-import { NoteService } from '../note-service.service'
+import { MenuService } from '../_services/menu.service'
+import { NoteService } from '../_services/note.service.service'
 
 @Component({
   selector: 'sidebar',
