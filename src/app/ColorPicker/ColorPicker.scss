@@ -2,25 +2,33 @@
   position: absolute;
   bottom: 30px;
   right: 39px;
-  z-index: 10;
   display: grid;
   gap: 4px;
   padding: 5px 15px;
   border-radius: 30px;
   grid-template-columns: repeat(6, 1fr);
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  pointer-events: none;
+  opacity: 0;
+  &.show {
+    pointer-events: all;
+    opacity: 1;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
   .color-item {
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+      rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     border-radius: 50%;
     width: 30px;
     height: 30px;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
     &:hover {
       cursor: pointer;
-      filter: brightness(90%);
+    }
+    &.selected {
+      filter: brightness(85%);
     }
     &.selected,
     &:hover {
-      outline: 1px solid black;
+      outline: 2px solid rgba(0, 0, 0, 0.452);
     }
   }
 }

@@ -4,5 +4,4 @@ export interface Note {
   txt: string
   color: string
   createdAt: string
-  isHovered?: boolean
 }

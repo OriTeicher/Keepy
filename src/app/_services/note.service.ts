@@ -14,7 +14,6 @@ export class NoteService {
 
   addNote(noteToAdd: Note) {
     const currentNotes = this.notesSubject.value
-    noteToAdd.isHovered = false
     currentNotes.unshift(noteToAdd)
     this.notesSubject.next(currentNotes)
   }
@@ -23,7 +22,6 @@ export class NoteService {
     const currentNotes = this.notesSubject.value.filter(
       (note) => note._id !== noteId
     )
-    console.log('currentNotes', currentNotes)
     this.notesSubject.next(currentNotes)
   }
 

@@ -20,7 +20,7 @@ export const NOTES_GRADIENTS = [
   'linear-gradient(to bottom, #85FFBD 0%, #FFFB7D 100%)',
   'linear-gradient(to bottom, #00DBDE 0%, #FFF 100%)',
   'linear-gradient(to bottom, #fff 0%, lightskyblue 100%)',
-  'linear-gradient(to bottom, #85FFBD 0%, #FFFB7D 100%)',
+  'linear-gradient(to bottom, lightseagreen 0%, lightskyblue 100%)',
   'linear-gradient(to bottom, #FFF 0%, #FC00FF 100%)',
 ]
 
@@ -29,7 +29,6 @@ function getDemoNotes(amount: number = 20): Note[] {
   for (let i = 0; i < amount; i++) {
     notes.push(getDemoNote())
   }
-  console.log('notes', notes)
   return notes
 }
 
@@ -47,7 +46,6 @@ function getDemoNote() {
       : NOTES_GRADIENTS[randColorIdx]
   return {
     _id: makeId(),
-    isHovered: false,
     title,
     txt,
     type,

@@ -7,64 +7,75 @@ import {
   COLOR_NOTE_ACTION,
   COPY_NOTE_ACTION,
   REMOVE_NOTE_ACTION,
-} from '../_services/actions.service'
-import { NoteService } from '../_services/note.service.service'
+} from '../_services/consts.service'
+import { NoteService } from '../_services/note.service'
 import { ColorPickerComponent } from '../ColorPicker/ColorPicker'
-import { getRandomColor, makeId } from '../_services/util.service'
+import { makeId } from '../_services/util.service'
+import { HoverDirective } from '../_directives/note.hover.directive'
 @Component({
   selector: 'note-index',
   standalone: true,
-  imports: [CommonModule, NoteBottomActionsComponent, ColorPickerComponent],
+  imports: [
+    CommonModule,
+    NoteBottomActionsComponent,
+    ColorPickerComponent,
+    HoverDirective,
+  ],
   templateUrl: './NoteIndex.html',
   styleUrls: ['./NoteIndex.scss', '../../main.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoteIndexComponent {
   constructor(private notesService: NoteService) {}
-  notes: Note[] = []
+  notes!: Note[]
+  selectedNote!: Note
+  isColorPickerOpen!: boolean
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.selectedNote = {} as Note
     this.notes = noteService.getDemoNotes()
     this.notesService.setNotes(this.notes)
   }
 
-  handleMouseOver(noteId: string) {
-    this.notes[this.notes.findIndex((note) => note._id === noteId)].isHovered =
-      true
+  getNoteIdxById(noteId: string) {
+    return this.notes.findIndex((note) => note._id === noteId)
   }
 
-  handleMouseOut(noteId: string) {
-    this.notes[this.notes.findIndex((note) => note._id === noteId)].isHovered =
-      false
-  }
-
-  removeNote(noteId: string) {
+  removeNote(noteId: string): void {
     this.notes = this.notes.filter((note) => note._id !== noteId)
     this.notesService.removeNoteById(noteId)
   }
 
-  duplicateNote(noteId: string) {
+  duplicateNote(noteId: string): void {
     const noteToCopy = this.notes.find((note) => note._id === noteId)
     if (!noteToCopy) return
     const noteCopy: Note = { ...noteToCopy, _id: makeId() }
     this.notesService.addNote(noteCopy)
   }
 
-  paintNote(color: string, noteId: string) {
+  paintNote(color: string, noteId: string): void {
     const noteIdx = this.notes.findIndex((note) => note._id === noteId)
     this.notes[noteIdx].color = color
   }
 
+  toggleColorPicker() {
+    this.isColorPickerOpen = !this.isColorPickerOpen
+  }
+
   onNoteAction(action: { noteId: string; type: string; data?: any }) {
+    this.selectedNote = this.notes[this.getNoteIdxById(action.noteId)]
+    console.log('this.selectedNote._id', this.selectedNote._id)
     switch (action.type) {
       case REMOVE_NOTE_ACTION:
         this.removeNote(action.noteId)
         break
-      case COLOR_NOTE_ACTION:
-        this.paintNote(action.data, action.noteId)
-        break
       case COPY_NOTE_ACTION:
         this.duplicateNote(action.noteId)
+        break
+      case COLOR_NOTE_ACTION:
+        action.data
+          ? this.paintNote(action.data, action.noteId)
+          : this.toggleColorPicker()
         break
     }
   }

@@ -9,12 +9,13 @@
     gap: 10px;
     &:hover {
       cursor: pointer;
-      filter: brightness(90%);
     }
     padding: $inline-space;
     border-radius: $main-border-radius;
-
-    transition: filter 0.3s, transform 0.3s, background 0.3s;
+    &::before {
+      background-color: linear-gradient(#333, #fff);
+    }
+    transition: filter 0.3s, transform 0.3s;
     padding-bottom: 40px;
     button {
       opacity: 0.1;
@@ -49,10 +50,17 @@
       background-color: #ffffff0c;
       outline: 1px solid rgba(0, 0, 0, 0.267);
       opacity: 0;
-      &.hover {
+      &.hovered {
         opacity: 1;
       }
     }
+  }
+}
+
+.note-preview.hovered {
+  filter: brightness(80%);
+  .icons-container {
+    opacity: 1;
   }
 }
 

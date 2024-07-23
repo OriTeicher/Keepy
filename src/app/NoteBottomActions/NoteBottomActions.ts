@@ -7,6 +7,7 @@ import {
   matCropOriginal,
   matDone,
 } from '@ng-icons/material-icons/baseline'
+import { NoteAction } from '../_interfaces/NoteAction'
 @Component({
   selector: 'note-bottom-actions',
   standalone: true,
@@ -25,7 +26,7 @@ import {
 })
 export class NoteBottomActionsComponent {
   @Input() noteId: string | null = null
-  @Output() noteAction = new EventEmitter<{ noteId: string; type: string }>()
+  @Output() noteAction = new EventEmitter<NoteAction>()
 
   icons = [
     { type: 'remove', svg: 'matDeleteForever' },

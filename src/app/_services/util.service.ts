@@ -6,7 +6,7 @@ export function getRandomIntInclusive(min: number, max: number): number {
 
 export function makeId() {
   const randNum = getRandomIntInclusive(10000, 100000000)
-  return `N-#${randNum}`
+  return `n-${randNum}`
 }
 
 export function getRandomColor(): string {

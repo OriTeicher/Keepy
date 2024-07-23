@@ -1,8 +1,11 @@
-<article class="color-picker-container">
+<article class="color-picker-container" [class]="{'show': isColorPickerOpen && selectedNote._id === noteId}">
   @for (color of colors; track colors) {
-  <div class="color-item" [style]="{background: color}" (colorSelect)="handleSelectColor(color)"></div>
+  <div class="color-item" [style]="{background: color}" (click)="handleSelectColor(color)"
+    [class]="{'selected': color === activeColor}">
+  </div>
   }
   @for (gradient of gradients; track gradients) {
-  <div class="color-item" [style]="{background: gradient}" (colorSelect)="handleSelectColor(gradient)"></div>
+  <div class="color-item" [style]="{background: gradient}" (click)="handleSelectColor(gradient)"
+    [class]="{'selected': gradient === activeColor}"></div>
   }
 </article>
