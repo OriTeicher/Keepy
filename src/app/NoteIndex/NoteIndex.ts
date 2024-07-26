@@ -54,7 +54,6 @@ export class NoteIndexComponent {
 
   removeNote(noteId: string): void {
     this.notes = this.notes.filter((note) => note._id !== noteId)
-    this.notesService.removeNoteById(noteId)
   }
 
   duplicateNote(noteId: string): void {
@@ -96,5 +95,6 @@ export class NoteIndexComponent {
           : this.toggleColorPicker()
         break
     }
+    this.notesService.setNotes(this.notes)
   }
 }

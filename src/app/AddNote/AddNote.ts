@@ -4,7 +4,6 @@ import { ADD_UPDATE_NOTE_ACTION, EMPTY_STR } from '../_services/consts.service'
 import { Note } from '../_interfaces/Note'
 import { getEmptyNote, noteService } from '../_services/note.demo.service'
 import { NoteAction } from '../_interfaces/NoteAction'
-import { makeId } from '../_services/util.service'
 
 @Component({
   selector: 'add-note',
@@ -37,7 +36,6 @@ export class AddNoteComponent {
   resetEditor(): void {
     this.title = EMPTY_STR
     this.description = EMPTY_STR
-    console.log('EDITOR CLEAR')
   }
 
   handleAddNote(ev: any): void {

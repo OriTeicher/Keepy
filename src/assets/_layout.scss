@@ -13,7 +13,6 @@
 // ?navbar
 .navbar {
   transition: 0.4s ease-in;
-
   color: #fff;
   z-index: 10;
   position: sticky;
@@ -67,6 +66,7 @@
       background-color: #10101065;
     }
   }
+
   &.closed {
     width: 44px;
 
@@ -95,6 +95,7 @@
   height: fit-content;
   padding: 10px;
   break-inside: avoid;
+  padding-inline-end: 15px;
 }
 
 .closed-index {

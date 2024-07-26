@@ -16,12 +16,12 @@ export const NOTE_COLORS = [
 ]
 
 export const NOTES_GRADIENTS = [
-  'linear-gradient(to bottom,slategray 0%, white 100%)',
-  'linear-gradient(to bottom, #85FFBD 0%, #FFFB7D 100%)',
-  'linear-gradient(to bottom, #00DBDE 0%, #FFF 100%)',
-  'linear-gradient(to bottom, #fff 0%, lightskyblue 100%)',
-  'linear-gradient(to bottom, lightseagreen 0%, lightskyblue 100%)',
-  'linear-gradient(to bottom, #FFF 0%, #FC00FF 100%)',
+  'linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%)',
+  'linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%)',
+  'linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%)',
+  'linear-gradient(45deg, #FBDA61 0%, #FF5ACD 100%)',
+  'linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%)',
+  'linear-gradient(0deg, #08AEEA 0%, #2AF598 100%)',
 ]
 
 function getDemoNotes(amount: number = 20): Note[] {
