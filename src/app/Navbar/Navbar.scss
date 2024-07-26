@@ -1,9 +1,11 @@
 @use "../../main.scss" as *;
 
 .header-input {
+  transition: 0.2s ease-in;
   width: 40%;
-  padding: 7px 10px;
-  font-size: 20px;
+  min-width: 418px;
+  padding: 15px 10px;
+  font-size: 1rem;
   background-color: $bgc-003;
   &::placeholder {
     color: #ffffff9a;

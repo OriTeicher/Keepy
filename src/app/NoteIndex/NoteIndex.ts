@@ -56,6 +56,7 @@ export class NoteIndexComponent {
   paintNote(color: string, noteId: string): void {
     const noteIdx = this.notes.findIndex((note) => note._id === noteId)
     this.notes[noteIdx].color = color
+    this.toggleColorPicker()
   }
 
   toggleColorPicker() {
@@ -64,7 +65,6 @@ export class NoteIndexComponent {
 
   onNoteAction(action: { noteId: string; type: string; data?: any }) {
     this.selectedNote = this.notes[this.getNoteIdxById(action.noteId)]
-    console.log('this.selectedNote._id', this.selectedNote._id)
     switch (action.type) {
       case REMOVE_NOTE_ACTION:
         this.removeNote(action.noteId)
