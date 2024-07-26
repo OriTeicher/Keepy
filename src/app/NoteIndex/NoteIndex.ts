@@ -4,6 +4,7 @@ import { noteService } from '../_services/note.demo.service'
 import { NoteBottomActionsComponent } from '../NoteBottomActions/NoteBottomActions'
 import { Note } from '../_interfaces/Note'
 import {
+  ADD_UPDATE_NOTE_ACTION,
   COLOR_NOTE_ACTION,
   COPY_NOTE_ACTION,
   REMOVE_NOTE_ACTION,
@@ -12,6 +13,8 @@ import { NoteService } from '../_services/note.service'
 import { ColorPickerComponent } from '../ColorPicker/ColorPicker'
 import { makeId } from '../_services/util.service'
 import { HoverDirective } from '../_directives/note.hover.directive'
+import { AddNoteComponent } from '../AddNote/AddNote'
+import { NoteAction } from '../_interfaces/NoteAction'
 @Component({
   selector: 'note-index',
   standalone: true,
@@ -19,7 +22,9 @@ import { HoverDirective } from '../_directives/note.hover.directive'
     CommonModule,
     NoteBottomActionsComponent,
     ColorPickerComponent,
+    AddNoteComponent,
     HoverDirective,
+    AddNoteComponent,
   ],
   templateUrl: './NoteIndex.html',
   styleUrls: ['./NoteIndex.scss', '../../main.scss'],
@@ -28,7 +33,7 @@ import { HoverDirective } from '../_directives/note.hover.directive'
 export class NoteIndexComponent {
   constructor(private notesService: NoteService) {}
   notes!: Note[]
-  selectedNote!: Note
+  selectedNote!: Note | null
   isColorPickerOpen!: boolean
 
   ngOnInit(): void {
@@ -39,6 +44,12 @@ export class NoteIndexComponent {
 
   getNoteIdxById(noteId: string) {
     return this.notes.findIndex((note) => note._id === noteId)
+  }
+
+  addUpadteNote(noteId?: string, noteToAdd?: Note) {
+    console.log('noteId,noteToAdd', noteId, noteToAdd)
+    if (noteId) this.notes.splice(this.getNoteIdxById(noteId), 1, noteToAdd!)
+    else this.notes.unshift({ ...noteToAdd!, _id: makeId() })
   }
 
   removeNote(noteId: string): void {
@@ -63,18 +74,25 @@ export class NoteIndexComponent {
     this.isColorPickerOpen = !this.isColorPickerOpen
   }
 
-  onNoteAction(action: { noteId: string; type: string; data?: any }) {
-    this.selectedNote = this.notes[this.getNoteIdxById(action.noteId)]
+  onNoteAction(action: NoteAction) {
+    this.selectedNote = action.noteId
+      ? this.notes[this.getNoteIdxById(action.noteId)]
+      : null
+    debugger
     switch (action.type) {
+      case ADD_UPDATE_NOTE_ACTION:
+        console.log('hello 2')
+        this.addUpadteNote(action.noteId, action.data)
+        break
       case REMOVE_NOTE_ACTION:
-        this.removeNote(action.noteId)
+        this.removeNote(action.noteId!)
         break
       case COPY_NOTE_ACTION:
-        this.duplicateNote(action.noteId)
+        this.duplicateNote(action.noteId!)
         break
       case COLOR_NOTE_ACTION:
         action.data
-          ? this.paintNote(action.data, action.noteId)
+          ? this.paintNote(action.data, action.noteId!)
           : this.toggleColorPicker()
         break
     }

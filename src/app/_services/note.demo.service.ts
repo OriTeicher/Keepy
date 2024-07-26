@@ -54,6 +54,21 @@ function getDemoNote() {
   }
 }
 
+export function getEmptyNote(
+  title: string = 'Title...',
+  txt: string = 'Description...',
+  type: string = 'txt'
+) {
+  return {
+    _id: '',
+    title,
+    txt,
+    type,
+    createdAt: formatDate(new Date()),
+    color: '#FFF',
+  }
+}
+
 function formatDate(date: Date): string {
   const hours = date.getHours().toString().padStart(2, '0')
   const minutes = date.getMinutes().toString().padStart(2, '0')

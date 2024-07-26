@@ -1,5 +1,5 @@
 export interface NoteAction {
-  noteId: string
+  noteId?: string | undefined
   type: string
   data?: any
 }

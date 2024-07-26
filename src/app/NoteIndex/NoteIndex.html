@@ -1,3 +1,4 @@
+<add-note (addNote)="onNoteAction($event)"></add-note>
 <section class="notes-layout">
   @for (note of notes; track note.title) {
   <div class="note-preview" [ngStyle]="{'background': note.color}" style="position: relative;" noteHover>
@@ -6,7 +7,7 @@
     <p>{{note.createdAt}}</p>
     <p>{{note._id}}</p>
     <note-bottom-actions class="icons-container" [noteId]="note._id" (noteAction)="onNoteAction($event)" />
-    <color-picker [noteId]="note._id" [noteColor]="note.color" [selectedNote]="selectedNote"
+    <color-picker [noteId]="note._id" [noteColor]="note.color" [selectedNote]="selectedNote!"
       [isColorPickerOpen]="isColorPickerOpen" (selectedColor)="onNoteAction($event)"> </color-picker>
   </div>}
   @empty {

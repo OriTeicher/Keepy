@@ -1,0 +1,6 @@
+<form class="add-note-container" (submit)="handleAddNote($event)">
+  <input type="text" placeholder="Title..." [value]="title || null" (input)="setTitle($event)">
+  <textarea placeholder="How are you today..." [value]="description || null"
+    (input)="setDescription($event)"></textarea>
+  <button>Keep</button>
+</form>
