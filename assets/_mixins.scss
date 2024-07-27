@@ -1,0 +1,7 @@
+@mixin svgStyle {
+  font-size: $svg-font-size;
+  cursor: pointer;
+  &:hover {
+    filter: brightness(90%);
+  }
+}
