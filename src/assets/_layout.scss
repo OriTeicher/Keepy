@@ -110,8 +110,9 @@
 }
 
 @media (max-width: 800px) {
-  .navbar {
-    grid-template-columns: 42px 1fr auto;
+  .navbar,
+  .navbar.closed {
+    grid-template-columns: 44px 1fr auto;
   }
   .header-input {
     min-width: unset;
