@@ -15,7 +15,8 @@
     &::before {
       background-color: linear-gradient(#333, #fff);
     }
-    transition: filter 0.3s, transform 0.3s;
+    scale: 1;
+    transition: filter 0.3s, transform 0.3s, scale 0.2s;
     padding-bottom: 40px;
     button {
       opacity: 0.1;
@@ -58,7 +59,7 @@
 }
 
 .note-preview.hovered {
-  filter: brightness(80%);
+  scale: 1.02;
   .icons-container {
     opacity: 1;
   }

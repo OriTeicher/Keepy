@@ -7,12 +7,12 @@ export const noteService = {
 }
 
 export const NOTE_COLORS = [
-  'pink',
   'white',
-  'lightseagreen',
+  'pink',
   'lightcoral',
-  'lightyellow',
   'lightskyblue',
+  'lightsteelblue',
+  'lightseagreen',
 ]
 
 export const NOTES_GRADIENTS = [

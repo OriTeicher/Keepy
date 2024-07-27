@@ -66,7 +66,6 @@ export class NoteIndexComponent {
   paintNote(color: string, noteId: string): void {
     const noteIdx = this.notes.findIndex((note) => note._id === noteId)
     this.notes[noteIdx].color = color
-    this.toggleColorPicker()
   }
 
   toggleColorPicker() {
@@ -77,7 +76,6 @@ export class NoteIndexComponent {
     this.selectedNote = action.noteId
       ? this.notes[this.getNoteIdxById(action.noteId)]
       : null
-    debugger
     switch (action.type) {
       case ADD_UPDATE_NOTE_ACTION:
         console.log('hello 2')
