@@ -6,7 +6,7 @@
   grid-template-columns: auto 1fr;
   transition: grid-template-columns 0.3s ease-in-out;
   min-height: 100vh;
-  & > {
+  & nth:child(n) {
     height: 100%;
   }
   z-index: 1;
@@ -76,7 +76,7 @@
       font-size: 0;
     }
   }
-  & > :hover {
+  & nth:child(n) :hover {
     cursor: pointer;
     background-color: #10101065;
   }
@@ -118,7 +118,7 @@
     grid-template-columns: 35px 1fr;
     transition: grid-template-columns 0.2s ease-in-out;
     min-height: 100vh;
-    & > {
+    & nth:child(n) {
       height: 100%;
     }
     z-index: 1;
