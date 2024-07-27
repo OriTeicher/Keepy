@@ -15,9 +15,6 @@ $font-family-001: "Roboto", Arial;
   max-width: 600px;
   height: fit-content;
   margin-block-end: 10px;
-  > {
-    font-family: $font-family-001;
-  }
 
   input {
     background-color: #393c3f;

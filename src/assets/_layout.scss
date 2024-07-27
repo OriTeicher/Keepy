@@ -4,9 +4,7 @@
   grid-template-columns: auto 1fr;
   transition: grid-template-columns 0.3s ease-in-out;
   min-height: 100vh;
-  & > {
-    height: 100%;
-  }
+
   z-index: 1;
 }
 
