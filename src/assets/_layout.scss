@@ -123,18 +123,12 @@
     grid-template-columns: 35px 1fr;
     transition: grid-template-columns 0.2s ease-in-out;
     min-height: 100vh;
-    // & > {
-    //   height: 100%;
-    // }
+    .note-index {
+      padding-inline-start: 20px;
+    }
     z-index: 1;
   }
-  .closed {
-  }
 
-  .note-index {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
   .closed-index {
     width: 100%;
   }
