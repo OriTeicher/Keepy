@@ -8,4 +8,6 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:5173/`. The appli
 
 ## Currently In Development
 
-![keepy mcbook](https://github.com/user-attachments/assets/22748f4d-cce3-46a4-9d15-421edb875f15)
+<img src="https://github.com/user-attachments/assets/b1a14e7b-1ead-4f11-91aa-00fb6e7b2dc5" width=17% />
+<img src="https://github.com/user-attachments/assets/8c753812-429a-495f-9de2-74102ea399dc" width=60% />
+
