@@ -26,7 +26,9 @@ export class ColorPickerComponent {
     this.activeColor = this.noteColor
   }
 
-  handleSelectColor(color: string) {
+  handleSelectColor(ev: Event, color: string) {
+    ev.stopPropagation()
+    ev.preventDefault()
     this.activeColor = color
     this.selectedColor.emit({
       noteId: this.noteId,

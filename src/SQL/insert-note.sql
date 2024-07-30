@@ -1,9 +1,8 @@
-INSERT INTO notes (_id, "isHovered", title, txt, type, "createdAt", color)
-SELECT _id, "isHovered", title, txt, type, "createdAt", color
+INSERT INTO notes (_id, title, txt, type, "createdAt", color)
+SELECT _id, title, txt, type, "createdAt", color
 FROM json_populate_recordset(NULL::notes, '[
   {
     "_id": "note-101",
-    "isHovered": false,
     "title": "Meeting",
     "txt": "Lorem ipsum dolor sit",
     "type": "text",
@@ -12,7 +11,6 @@ FROM json_populate_recordset(NULL::notes, '[
   },
   {
     "_id": "note-102",
-    "isHovered": false,
     "title": "Shopping",
     "txt": "amet consectetur adipiscing",
     "type": "todo",
@@ -20,3 +18,12 @@ FROM json_populate_recordset(NULL::notes, '[
     "color": "lightskyblue"
   }
 ]');
+INSERT INTO notes (_id, title, txt, type, createdAt, color)
+VALUES (
+    '_id:character varying',
+    'title:character varying',
+    'txt:text',
+    'type:character varying',
+    'createdAt:timestamp without time zone',
+    'color:character varying'
+  );

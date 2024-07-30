@@ -36,7 +36,9 @@ export class NoteBottomActionsComponent {
     { type: 'todo', svg: 'matDone' },
   ]
 
-  handleNoteAction(type: string) {
+  handleNoteAction(ev: Event, type: string) {
+    ev.preventDefault()
+    ev.stopPropagation()
     if (this.noteId) this.noteAction.emit({ noteId: this.noteId, type })
   }
 }

@@ -6,6 +6,8 @@ export const noteService = {
   getDemoNote,
 }
 
+let gNextId = 0
+
 export const NOTE_COLORS = [
   'white',
   'pink',
@@ -24,7 +26,7 @@ export const NOTES_GRADIENTS = [
   'linear-gradient(0deg, #08AEEA 0%, #2AF598 100%)',
 ]
 
-function getDemoNotes(amount: number = 20): Note[] {
+function getDemoNotes(amount: number = 10): Note[] {
   let notes = []
   for (let i = 0; i < amount; i++) {
     notes.push(getDemoNote())
@@ -45,7 +47,7 @@ function getDemoNote() {
       ? NOTE_COLORS[randColorIdx]
       : NOTES_GRADIENTS[randColorIdx]
   return {
-    _id: makeId(),
+    _id: `note-00${gNextId++}`,
     title,
     txt,
     type,

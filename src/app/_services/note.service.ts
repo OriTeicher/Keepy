@@ -8,24 +8,35 @@ export class NoteService {
   private notesSubject = new BehaviorSubject<Note[]>([])
   notes$ = this.notesSubject.asObservable()
 
-  setNotes(notes: Note[]) {
+  getNoteById(noteId: string): Note | undefined {
+    return this.notesSubject.value.find((note) => noteId === note._id)
+  }
+
+  setNotes(notes: Note[]): void {
     this.notesSubject.next(notes)
   }
 
-  addNote(noteToAdd: Note) {
+  addNote(noteToAdd: Note): void {
     const currentNotes = this.notesSubject.value
     currentNotes.unshift(noteToAdd)
     this.notesSubject.next(currentNotes)
   }
 
-  removeNoteById(noteId: string) {
+  updateNote(noteToUpdate: Note): void {
+    const noteIdx: number = this.notesSubject.value.findIndex(
+      (note) => noteToUpdate._id === note._id
+    )
+    this.notesSubject.value.splice(noteIdx, 1, { ...noteToUpdate })
+  }
+
+  removeNoteById(noteId: string): void {
     const currentNotes = this.notesSubject.value.filter(
       (note) => note._id !== noteId
     )
     this.notesSubject.next(currentNotes)
   }
 
-  getNotesLength() {
+  getNotesLength(): number {
     return this.notesSubject.value.length
   }
 }

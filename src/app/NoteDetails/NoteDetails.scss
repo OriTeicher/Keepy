@@ -1,0 +1,53 @@
+dialog {
+  transition: all 0.5s;
+  height: fit-content;
+  z-index: 20;
+  inset: 0;
+  margin: auto;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  color: black;
+  input ::placeholder {
+    color: gray;
+  }
+  .add-note-container {
+    width: 400px;
+    textarea {
+      color: black;
+      padding: 10px;
+      min-height: 150px;
+      font-size: 16px;
+      font-weight: 600;
+      background-color: transparent;
+      max-height: fit-content;
+    }
+    input {
+      font-family: "Roboto", sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+    }
+    textarea,
+    input {
+      color: black;
+      background-color: transparent;
+      ::placeholder {
+        color: #333;
+      }
+    }
+  }
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}

@@ -15,7 +15,7 @@
   z-index: 10;
   position: sticky;
   top: 0;
-  background-color: #2e2e2ec0;
+  background-color: #2e2e2e;
   padding-inline-start: $inline-space;
   padding-inline-end: $inline-space;
   grid-column: 1/-1;
@@ -38,7 +38,7 @@
 .sidebar {
   border-right: 1px solid rgba(255, 255, 255, 0.068);
   width: 200px;
-  background-color: #2e2e2ec0;
+  background-color: #2e2e2ef5;
   color: #fff;
   position: sticky;
   top: 64px;
@@ -47,7 +47,8 @@
   max-height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
-  transition: 0.4s ease-in;
+  transition: width 0.4s ease-in;
+  will-change: width;
   .sidebar-link {
     transition: all 0.4s;
     height: 39px;
@@ -94,6 +95,7 @@
 
 // ?note-index
 .note-index {
+  position: relative;
   max-width: 100%;
   display: grid;
   padding: 10px;
@@ -122,6 +124,7 @@
     display: grid;
     grid-template-rows: 64px 1fr;
     grid-template-columns: 35px 1fr;
+    will-change: grid-template-columns;
     transition: grid-template-columns 0.2s ease-in-out;
     min-height: 100vh;
     .note-index {
@@ -135,7 +138,10 @@
     width: 100%;
   }
   .open-index {
+    will-change: width;
+
     .sidebar {
+      will-change: width;
       width: 150px;
     }
   }

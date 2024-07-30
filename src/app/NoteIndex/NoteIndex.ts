@@ -15,6 +15,7 @@ import { makeId } from '../_services/util.service'
 import { HoverDirective } from '../_directives/note.hover.directive'
 import { AddNoteComponent } from '../AddNote/AddNote'
 import { NoteAction } from '../_interfaces/NoteAction'
+import { Router, RouterModule } from '@angular/router'
 @Component({
   selector: 'note-index',
   standalone: true,
@@ -24,6 +25,7 @@ import { NoteAction } from '../_interfaces/NoteAction'
     ColorPickerComponent,
     AddNoteComponent,
     HoverDirective,
+    RouterModule,
     AddNoteComponent,
   ],
   templateUrl: './NoteIndex.html',
@@ -31,14 +33,15 @@ import { NoteAction } from '../_interfaces/NoteAction'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoteIndexComponent {
-  constructor(private notesService: NoteService) {}
+  constructor(private notesService: NoteService, private router: Router) {}
   notes!: Note[]
   selectedNote!: Note | null
   isColorPickerOpen!: boolean
+  colorPickerTimeout!: number
 
   ngOnInit(): void {
     this.selectedNote = {} as Note
-    this.notes = noteService.getDemoNotes()
+    this.notes = noteService.getDemoNotes(13)
     this.notesService.setNotes(this.notes)
   }
 
@@ -70,6 +73,14 @@ export class NoteIndexComponent {
 
   toggleColorPicker() {
     this.isColorPickerOpen = !this.isColorPickerOpen
+    if (this.isColorPickerOpen)
+      setTimeout(() => {
+        this.isColorPickerOpen = false
+      }, 2500)
+  }
+
+  displayNoteEditor(noteId: string) {
+    this.router.navigate(['notes', noteId])
   }
 
   onNoteAction(action: NoteAction) {

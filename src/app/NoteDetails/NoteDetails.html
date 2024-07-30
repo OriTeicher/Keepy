@@ -1,0 +1,10 @@
+@if (noteId) {
+<div class="backdrop" (click)="closeDialog()"></div>
+<dialog>
+  <form (submit)="onUpdateNote($event)" class="add-note-container" [style]="{'background': noteToEdit?.color}">
+    <input type="text" placeholder="Title..." [value]="noteToEdit?.title" name="title">
+    <textarea placeholder=" How are you today..." [value]="noteToEdit?.txt" name="txt"> </textarea>
+    <button>Update</button>
+  </form>
+</dialog>
+}
