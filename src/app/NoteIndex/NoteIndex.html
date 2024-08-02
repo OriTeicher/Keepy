@@ -1,4 +1,5 @@
 <add-note (addNote)="onNoteAction($event)"></add-note>
+@if (isLoadingNotes) {
 <section class="notes-layout">
   @for (note of notes; track note.title) {
   <div class="note-preview" [ngStyle]="{'background': note.color}" style="position: relative;" noteHover
@@ -9,9 +10,10 @@
     <note-bottom-actions class="icons-container" [noteId]="note._id" (noteAction)="onNoteAction($event)" />
     <color-picker [noteId]="note._id" [noteColor]="note.color" [selectedNote]="selectedNote!"
       [isColorPickerOpen]="isColorPickerOpen" (selectedColor)="onNoteAction($event)"> </color-picker>
-  </div>}
-  @empty {
-  <p style="color: #fff">no notes to display...</p>
+  </div>
   }
 </section>
 <router-outlet></router-outlet>
+} @else {
+<loader></loader>
+}

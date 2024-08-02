@@ -32,8 +32,8 @@ export class NoteBottomActionsComponent {
     { type: 'remove', svg: 'matDeleteForever' },
     { type: 'copy', svg: 'matContentCopy' },
     { type: 'color', svg: 'matColorLens' },
-    { type: 'img', svg: 'matCropOriginal' },
-    { type: 'todo', svg: 'matDone' },
+    // { type: 'img', svg: 'matCropOriginal' },
+    // { type: 'todo', svg: 'matDone' },
   ]
 
   handleNoteAction(ev: Event, type: string) {

@@ -1,5 +1,5 @@
 <ng-icon name="heroBars4" class="hamburger-svg" (click)="handleToggleMenu()"></ng-icon>
-<input type="text" placeholder="Search note..." class="header-input" />
+<input type="text" placeholder="Search note..." class="header-input" (input)="onSearchNotes($event)" />
 <div style="display: flex; align-items:center; gap: 5px;">
   <p style="font-size: 15px;">{{loggedInUser.username}}</p>
   <ng-icon name="heroUserCircle" class="hamburger-svg"></ng-icon>

@@ -8,7 +8,8 @@ $font-family-001: "Roboto", Arial;
 
   color: white;
   ::placeholder {
-    color: rgba(255, 255, 255, 0.6039215686);
+    font-size: 1.2em;
+    font-weight: 300;
   }
   display: grid;
   margin: auto;

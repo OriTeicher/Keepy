@@ -1,10 +1,10 @@
 <article class="color-picker-container" [class]="{'show': isColorPickerOpen && selectedNote._id === noteId}">
-  @for (color of colors; track colors) {
+  @for (color of colors; track color) {
   <div class="color-item" [style]="{background: color}" (click)="handleSelectColor($event, color)"
     [class]="{'selected': color === activeColor}">
   </div>
   }
-  @for (gradient of gradients; track gradients) {
+  @for (gradient of gradients; track gradient) {
   <div class="color-item" [style]="{background: gradient}" (click)="handleSelectColor($event, gradient)"
     [class]="{'selected': gradient === activeColor}"></div>
   }
