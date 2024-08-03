@@ -35,12 +35,25 @@ export class SidebarComponent implements OnInit {
   @Input() isMenuOpen = true
   notesLength: number = 0
   removedNotesLength: number = 0
-
+  labelsLength: number = 0
   selectedRoute = 'notes'
   links = [
-    { label: 'Notes', svg: 'heroPencilSolid', route: 'notes' },
-    { label: 'Labels', svg: 'heroHashtagSolid', route: 'labels' },
-    { label: 'Bin', svg: 'heroArchiveBoxXMarkSolid', route: 'bin' },
+    {
+      label: 'Notes',
+      svg: 'heroPencilSolid',
+      route: 'notes',
+    },
+    {
+      label: 'Labels',
+      svg: 'heroHashtagSolid',
+      route: 'labels',
+      amount: `(0)`,
+    },
+    {
+      label: 'Bin',
+      svg: 'heroArchiveBoxXMarkSolid',
+      route: 'bin',
+    },
   ]
 
   constructor(
@@ -52,13 +65,11 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.notesService.notes$.subscribe((notes) => {
-      this.notesLength = notes.length
-      this.links[0].label = `Notes (${this.notesLength})`
+      this.links[0].amount = `(${notes.length})`
       this.noteRef.markForCheck()
     })
     this.notesService.removedNotes$.subscribe((removedNotes) => {
-      this.removedNotesLength = removedNotes.length
-      this.links[2].label = `Bin (${this.removedNotesLength})`
+      this.links[2].amount = `(${removedNotes.length})`
       this.noteRef.markForCheck()
     })
   }

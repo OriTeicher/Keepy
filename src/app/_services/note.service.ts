@@ -70,10 +70,6 @@ export class NoteService {
       this.originalNotes = this.originalNotes.filter(
         (note) => note._id !== noteId
       )
-      console.log(
-        'this.removedNotesSubject.value',
-        this.removedNotesSubject.value
-      )
     }
   }
 

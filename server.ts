@@ -16,6 +16,17 @@ export function app(): express.Express {
   server.set('view engine', 'html')
   server.set('views', browserDistFolder)
 
+  server.use((req, res, next) => {
+    console.log(`Incoming request: ${req.method} ${req.url}`)
+    next()
+  })
+  // Define API routes before the Angular SSR route
+  server.get('/api/hello', (req, res) => {
+    console.log('API route /api/hello hit') // Debug log
+    res.json({ message: 'Hello, world!' })
+  })
+
+  // Serve static files (e.g., images, CSS)
   server.get(
     '*.*',
     express.static(browserDistFolder, {
@@ -23,6 +34,7 @@ export function app(): express.Express {
     })
   )
 
+  // Angular SSR route
   server.get('*', (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req
 

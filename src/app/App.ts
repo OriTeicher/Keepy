@@ -21,6 +21,6 @@ import { CommonModule } from '@angular/common'
   ],
 })
 export class AppComponent {
-  title = 'Google Keep'
+  title = 'Keepy'
   constructor(public menuService: MenuService) {}
 }

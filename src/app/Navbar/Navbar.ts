@@ -16,7 +16,7 @@ import { debounceTime } from 'rxjs/operators'
 })
 export class NavbarComponent {
   private searchTerm$ = new Subject<string>()
-  loggedInUser = { username: 'OriT5799' }
+  loggedInUser = { username: 'user_1' }
   isMenuOpen = true
   @Output() toggleMenuClick = new EventEmitter<boolean>()
 

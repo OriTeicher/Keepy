@@ -1,7 +1,10 @@
-@for (link of links; track link) {
+@for (link of links; track link;) {
 <div class="sidebar-link" [ngClass]="{'selected': selectedRoute === link.route}"
   (click)="handleRouteSelect(link.route)">
   <p>{{link.label}}</p>
-  <ng-icon [name]="link.svg"></ng-icon>
+  <div class="flex-center" style="gap: 3px;">
+    <ng-icon [name]="link.svg"></ng-icon>
+    <p style="font-size: 12px;">{{link.amount}}</p>
+  </div>
 </div>
 }

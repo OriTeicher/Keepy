@@ -6,6 +6,8 @@ import {
   OnInit,
   ChangeDetectorRef,
 } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import axios from 'axios'
 import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 import { Subscription } from 'rxjs'
 
@@ -46,16 +48,19 @@ import { AddNoteComponent } from '../AddNote/AddNote'
 })
 export class NoteIndexComponent implements OnInit, OnDestroy {
   constructor(
+    private http: HttpClient,
     private notesService: NoteService,
     private router: Router,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef
   ) {}
+  BASE_URL = 'http://localhost:5173/api'
   BIN_ROUTE = 'bin'
   notes!: Note[]
   selectedNote!: Note | null
   isColorPickerOpen!: boolean
   colorPickerTimeout!: number
+  test!: string
   isLoadingNotes: boolean = false
   private subscription!: Subscription
   private routeSubscription!: Subscription
@@ -68,6 +73,16 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
       )
       isBinRoute ? this.loadRemovedNotes() : this.loadRegularNotes()
     })
+  }
+
+  async testApi() {
+    try {
+      const res = await axios.get(`${this.BASE_URL}/hello`)
+      const { message } = res.data
+      this.test = message
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   loadRegularNotes(): void {
