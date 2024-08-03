@@ -149,7 +149,9 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
     }
   }
 
-  displayNoteEditor(noteId: string): void {
+  displayNoteEditor(event: Event, noteId: string): void {
+    event.preventDefault()
+    event.stopPropagation()
     this.router.navigate(['notes', noteId])
     console.log('noteId', noteId)
   }

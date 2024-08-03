@@ -3,11 +3,11 @@
 <section class="notes-layout">
   @for (note of notesToDisplay; track note) {
   <div class="note-preview" [ngStyle]="{'background': note.color}" style="position: relative;" noteHover
-    (click)="displayNoteEditor(note._id)">
+    (click)="displayNoteEditor($event, note._id)">
     <h2>{{note.title}}</h2>
     <h4>{{note.txt}}</h4>
     <p>{{note.createdAt | date}}</p>
-    <h5>{{note._id}}</h5>
+    <h5 style="background-color: aliceblue; border: 1px solid black; width: fit-content;">{{note._id}}</h5>
     <note-bottom-actions class="icons-container" [noteId]="note._id" (noteAction)="onNoteAction($event)" />
     <color-picker [noteId]="note._id" [noteColor]="note.color" [selectedNote]="selectedNote!"
       [isColorPickerOpen]="isColorPickerOpen" (selectedColor)="onNoteAction($event)"> </color-picker>

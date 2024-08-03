@@ -30,6 +30,7 @@
     "@nguniversal/builders": "^16.2.0",
     "@nguniversal/express-engine": "^16.2.0",
     "axios": "^1.7.3",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "ngx-loading": "^2.0.1",
     "pg": "^8.12.0",

@@ -11,6 +11,7 @@ export default pool
 export const dbService = {
   loadNotes,
   testPoolConnection,
+  loadNoteById,
 }
 
 async function loadNotes() {
@@ -20,6 +21,17 @@ async function loadNotes() {
   } catch (err) {
     console.error(err)
     throw new Error('Failed to load notes')
+  }
+}
+
+async function loadNoteById(noteId: string) {
+  try {
+    const query = 'SELECT * FROM notes WHERE _id = $1'
+    const res = await pool.query(query, [noteId])
+    return res.rows[0]
+  } catch (err) {
+    console.error(err)
+    throw new Error('Failed to load note')
   }
 }
 

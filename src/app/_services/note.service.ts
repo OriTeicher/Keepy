@@ -21,8 +21,8 @@ export class NoteService {
     return this.http.get<Note[]>(`${this.BASE_URL}/notes`)
   }
 
-  getNoteById(noteId: string): Note | undefined {
-    return this.notesSubject.value.find((note) => noteId === note._id)
+  getNoteById(noteId: string): Observable<Note> {
+    return this.http.get<Note>(`${this.BASE_URL}/notes/${noteId}`)
   }
 
   // setNotes(notes: Note[]): void {

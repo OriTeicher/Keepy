@@ -1,10 +1,18 @@
-@if (noteId) {
+@if (noteToEdit?._id) {
 <div class="backdrop" (click)="closeDialog()"></div>
 <dialog>
   <form (submit)="onUpdateNote($event)" class="add-note-container" [style]="{'background': noteToEdit?.color}">
     <input type="text" placeholder="Title..." [value]="noteToEdit?.title" name="title">
     <textarea placeholder=" How are you today..." [value]="noteToEdit?.txt" name="txt"> </textarea>
     <button>Update</button>
+  </form>
+</dialog>
+} @else {
+<div class="backdrop" (click)="closeDialog()"></div>
+<dialog>
+  <form (submit)="onUpdateNote($event)" style="height: 300px;" class="add-note-container"
+    [style]="{'background': 'white'}">
+    <input type="text" placeholder="Title..." value="Loading Note..." name="title" style="text-align: center;">
   </form>
 </dialog>
 }
