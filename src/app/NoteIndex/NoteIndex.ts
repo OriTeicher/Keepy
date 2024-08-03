@@ -4,6 +4,7 @@ import {
   Component,
   OnDestroy,
   OnInit,
+  ChangeDetectorRef,
 } from '@angular/core'
 import { NoteService } from '../_services/note.service'
 import { NoteBottomActionsComponent } from '../NoteBottomActions/NoteBottomActions'
@@ -41,7 +42,11 @@ import { Loader } from '../Loader/Loader'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoteIndexComponent implements OnInit, OnDestroy {
-  constructor(private notesService: NoteService, private router: Router) {}
+  constructor(
+    private notesService: NoteService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) {}
   notes!: Note[]
   selectedNote!: Note | null
   isColorPickerOpen!: boolean
@@ -50,12 +55,17 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
   private subscription!: Subscription
 
   ngOnInit(): void {
-    this.selectedNote = null
-    this.subscription = this.notesService.notes$.subscribe(
-      (notes) => (this.notes = notes)
-    )
-    this.notes = this.notesService.originalNotes = noteService.getDemoNotes(13)
-    this.notesService.setNotes(this.notes)
+    this.isLoadingNotes = true
+    setTimeout(() => {
+      this.subscription = this.notesService.notes$.subscribe((notes) => {
+        this.notes = notes
+        this.isLoadingNotes = false
+        this.cdr.markForCheck()
+      })
+    }, 1800)
+    const demoNotes = noteService.getDemoNotes(13)
+    this.notesService.originalNotes = demoNotes
+    this.notesService.setNotes(demoNotes)
   }
 
   ngOnDestroy(): void {

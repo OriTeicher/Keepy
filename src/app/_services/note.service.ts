@@ -18,12 +18,14 @@ export class NoteService {
 
   setNotes(notes: Note[]): void {
     this.notesSubject.next(notes)
+    this.originalNotes = [...notes]
   }
 
   addNote(noteToAdd: Note): void {
     const currentNotes = [...this.notesSubject.value]
     currentNotes.unshift(noteToAdd)
     this.notesSubject.next(currentNotes)
+    this.originalNotes.unshift(noteToAdd)
   }
 
   updateNote(noteToUpdate: Note): void {
@@ -33,6 +35,11 @@ export class NoteService {
     )
     currentNotes[noteIdx] = { ...noteToUpdate }
     this.notesSubject.next(currentNotes)
+
+    const originalNoteIdx = this.originalNotes.findIndex(
+      (note) => note._id === noteToUpdate._id
+    )
+    this.originalNotes[originalNoteIdx] = { ...noteToUpdate }
   }
 
   removeNoteById(noteId: string): void {
@@ -40,6 +47,10 @@ export class NoteService {
       (note) => note._id !== noteId
     )
     this.notesSubject.next(currentNotes)
+
+    this.originalNotes = this.originalNotes.filter(
+      (note) => note._id !== noteId
+    )
   }
 
   filterNotes(searchTerm: string): void {
@@ -48,10 +59,10 @@ export class NoteService {
     const filteredNotes = this.originalNotes.filter((note) =>
       note.title.toLowerCase().includes(lowerCaseTerm)
     )
-    console.log('filteredNotes', filteredNotes)
+
     this.notesSubject.next(filteredNotes)
+
     setTimeout(() => {
-      this.notesSubject.next(filteredNotes)
       this.loadingSubject.next(false)
     }, 500)
   }

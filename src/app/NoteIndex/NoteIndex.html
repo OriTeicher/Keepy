@@ -1,7 +1,7 @@
 <add-note (addNote)="onNoteAction($event)"></add-note>
-@if (isLoadingNotes) {
+@if (!isLoadingNotes) {
 <section class="notes-layout">
-  @for (note of notes; track note.title) {
+  @for (note of notes; track note) {
   <div class="note-preview" [ngStyle]="{'background': note.color}" style="position: relative;" noteHover
     (click)="displayNoteEditor(note._id)">
     <h2>{{note.title}}</h2>
