@@ -4,14 +4,39 @@ import express from 'express'
 import { fileURLToPath } from 'node:url'
 import { dirname, join, resolve } from 'node:path'
 import bootstrap from './src/main.server'
+import { dbService } from './src/app/_services/db.service'
+import { Pool } from 'pg'
 
 export function app(): express.Express {
   const server = express()
   const serverDistFolder = dirname(fileURLToPath(import.meta.url))
   const browserDistFolder = resolve(serverDistFolder, '../browser')
   const indexHtml = join(serverDistFolder, 'index.server.html')
-
+  const pool = new Pool({
+    user: 'note_db_dx96_user',
+    host: 'dpg-cqf0loogph6c73b314i0-a',
+    database: 'note_db_dx96',
+    password: '0u7voGulrA6ubWaH6VEXlOvd3XT31DUI',
+    port: 5432,
+  })
   const commonEngine = new CommonEngine()
+
+  server.get('/api/note', async (req, res) => {
+    try {
+      console.log('test')
+      await dbService.testPoolConnection()
+      res.json({ msg: 'Works' })
+      // const result = await pool.query('SELECT * FROM notes')
+      // res.json(result.rows)
+      // res.status(200).json(result)
+    } catch (err) {
+      console.error('Error fetching notes:', err)
+      res.status(500).json({ error: 'Failed to load notes' })
+    }
+  })
+  server.get('/api/hello', (req, res) => {
+    res.json({ message: 'Hello, world!' })
+  })
 
   server.set('view engine', 'html')
   server.set('views', browserDistFolder)
@@ -20,13 +45,7 @@ export function app(): express.Express {
     console.log(`Incoming request: ${req.method} ${req.url}`)
     next()
   })
-  // Define API routes before the Angular SSR route
-  server.get('/api/hello', (req, res) => {
-    console.log('API route /api/hello hit') // Debug log
-    res.json({ message: 'Hello, world!' })
-  })
 
-  // Serve static files (e.g., images, CSS)
   server.get(
     '*.*',
     express.static(browserDistFolder, {
@@ -34,7 +53,6 @@ export function app(): express.Express {
     })
   )
 
-  // Angular SSR route
   server.get('*', (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req
 

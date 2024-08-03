@@ -77,14 +77,14 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
 
   async testApi() {
     try {
-      const res = await axios.get(`${this.BASE_URL}/hello`)
-      const { message } = res.data
+      const response = await axios.get(`${this.BASE_URL}/hello`)
+      const data = response.data
+      const { message } = data
       this.test = message
-    } catch (err) {
+    } catch (err: Error | unknown) {
       console.error(err)
     }
   }
-
   loadRegularNotes(): void {
     this.subscription = this.notesService.notes$.subscribe((notes) => {
       this.notes = notes

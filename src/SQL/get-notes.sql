@@ -1,1 +1,1 @@
-SELECT ALL notes FROM notes
+SELECT * FROM notes
