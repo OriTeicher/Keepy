@@ -24,11 +24,15 @@ export class NoteService {
   getNoteById(noteId: string): Observable<Note> {
     return this.http.get<Note>(`${this.BASE_URL}/notes/${noteId}`)
   }
+  getNoteByIdOptimistic(noteId: string): Note {
+    console.log('this.originalNotes', this.originalNotes)
+    return this.originalNotes.find((note) => note._id === noteId)!
+  }
 
-  // setNotes(notes: Note[]): void {
-  //   this.notesSubject.next(notes)
-  //   this.originalNotes = [...notes]
-  // }
+  setNotes(notes: Note[]): void {
+    this.notesSubject.next(notes)
+    this.originalNotes = [...notes]
+  }
 
   addNote(noteToAdd: Note): void {
     const currentNotes = [...this.notesSubject.value]

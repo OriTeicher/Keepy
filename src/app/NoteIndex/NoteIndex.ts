@@ -79,6 +79,7 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
     this.isLoadingNotes = true
     this.subscription = this.notesService.fetchNotes().subscribe((res) => {
       const { notes }: any = res
+      this.notesService.originalNotes = notes
       this.notesToDisplay = notes
       this.isLoadingNotes = false
       this.cdr.markForCheck()
@@ -153,7 +154,6 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
     event.preventDefault()
     event.stopPropagation()
     this.router.navigate(['notes', noteId])
-    console.log('noteId', noteId)
   }
 
   onNoteAction(action: NoteAction): void {

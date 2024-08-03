@@ -10,9 +10,11 @@
 } @else {
 <div class="backdrop" (click)="closeDialog()"></div>
 <dialog>
-  <form (submit)="onUpdateNote($event)" style="height: 300px;" class="add-note-container"
-    [style]="{'background': 'white'}">
-    <input type="text" placeholder="Title..." value="Loading Note..." name="title" style="text-align: center;">
+  <form (submit)="onUpdateNote($event)" class="add-note-container"
+    [style]="{'background': noteToEdit?.color || 'white'}">
+    <input type="text" placeholder="Title..." value="Loading title.." name="title">
+    <textarea placeholder=" How are you today..." value="Loading content..." name="txt"> </textarea>
+    <button>Update</button>
   </form>
 </dialog>
 }

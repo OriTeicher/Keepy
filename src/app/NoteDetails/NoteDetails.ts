@@ -27,11 +27,8 @@ export class NoteDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((paramMap) => {
       this.noteId = paramMap.get('noteId')!
-      this.noteService.getNoteById(this.noteId).subscribe(({ note }: any) => {
-        this.noteToEdit = note
-        this.noteId = note._id
-        this.cdr.detectChanges()
-      })
+      this.noteToEdit = this.noteService.getNoteByIdOptimistic(this.noteId)
+      console.log('this.noteToEdit', this.noteToEdit)
     })
   }
 
