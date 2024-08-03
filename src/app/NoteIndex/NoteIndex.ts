@@ -56,7 +56,7 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
   ) {}
   BASE_URL = 'http://localhost:5173/api'
   BIN_ROUTE = 'bin'
-  notes!: Note[]
+  notesToDisplay!: Note[]
   selectedNote!: Note | null
   isColorPickerOpen!: boolean
   colorPickerTimeout!: number
@@ -75,34 +75,26 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
     })
   }
 
-  async testApi() {
-    try {
-      const response = await axios.get(`${this.BASE_URL}/hello`)
-      const data = response.data
-      const { message } = data
-      this.test = message
-    } catch (err: Error | unknown) {
-      console.error(err)
-    }
-  }
   loadRegularNotes(): void {
-    this.subscription = this.notesService.notes$.subscribe((notes) => {
-      this.notes = notes
+    this.isLoadingNotes = true
+    this.subscription = this.notesService.fetchNotes().subscribe((res) => {
+      const { notes }: any = res
+      this.notesToDisplay = notes
       this.isLoadingNotes = false
       this.cdr.markForCheck()
     })
-    const demoNotes = noteService.getDemoNotes(5)
-    this.notesService.originalNotes = demoNotes
-    this.notesService.setNotes(demoNotes)
   }
 
   loadRemovedNotes(): void {
-    this.subscription = this.notesService.removedNotes$.subscribe((notes) => {
-      this.notes = notes
-      this.isLoadingNotes = false
-      this.cdr.markForCheck()
-      console.log('notes', notes)
-    })
+    console.log('removed notes')
+    // this.isLoadingNotes = true
+    // this.subscription = this.notesService
+    //   .fetchRemovedNotes()
+    //   .subscribe((notes) => {
+    //     this.notes = notes
+    //     this.isLoadingNotes = false
+    //     this.cdr.markForCheck()
+    //   })
   }
 
   ngOnDestroy(): void {
@@ -115,35 +107,37 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
   }
 
   getNoteIdxById(noteId: string): number {
-    return this.notes.findIndex((note) => note._id === noteId)
+    return this.notesToDisplay.findIndex((note) => note._id === noteId)
   }
 
   addUpadteNote(noteId?: string, noteToAdd?: Note): void {
     if (noteId) {
-      this.notes.splice(this.getNoteIdxById(noteId), 1, noteToAdd!)
+      this.notesToDisplay.splice(this.getNoteIdxById(noteId), 1, noteToAdd!)
     } else {
-      this.notes.unshift({ ...noteToAdd!, _id: makeId() })
+      this.notesToDisplay.unshift({ ...noteToAdd!, _id: makeId() })
     }
-    this.notesService.setNotes(this.notes)
+    // this.notesService.setNotes(this.notesToDisplay)
   }
 
   removeNote(noteId: string): void {
-    const noteToRemoveIdx = this.notes.findIndex((note) => note._id !== noteId)
-    const removedNote = this.notes.splice(noteToRemoveIdx, 1)[0]
+    const noteToRemoveIdx = this.notesToDisplay.findIndex(
+      (note) => note._id !== noteId
+    )
+    const removedNote = this.notesToDisplay.splice(noteToRemoveIdx, 1)[0]
     this.notesService.moveNoteToBin(removedNote._id)
   }
 
   duplicateNote(noteId: string): void {
-    const noteToCopy = this.notes.find((note) => note._id === noteId)
+    const noteToCopy = this.notesToDisplay.find((note) => note._id === noteId)
     if (!noteToCopy) return
     const noteCopy: Note = { ...noteToCopy, _id: makeId() }
     this.notesService.addNote(noteCopy)
   }
 
   paintNote(color: string, noteId: string): void {
-    const noteIdx = this.notes.findIndex((note) => note._id === noteId)
-    this.notes[noteIdx].color = color
-    this.notesService.setNotes(this.notes)
+    const noteIdx = this.notesToDisplay.findIndex((note) => note._id === noteId)
+    this.notesToDisplay[noteIdx].color = color
+    // this.notesService.setNotes(this.notesToDisplay)
   }
 
   toggleColorPicker(): void {
@@ -157,11 +151,12 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
 
   displayNoteEditor(noteId: string): void {
     this.router.navigate(['notes', noteId])
+    console.log('noteId', noteId)
   }
 
   onNoteAction(action: NoteAction): void {
     this.selectedNote = action.noteId
-      ? this.notes[this.getNoteIdxById(action.noteId)]
+      ? this.notesToDisplay[this.getNoteIdxById(action.noteId)]
       : null
     switch (action.type) {
       case ADD_UPDATE_NOTE_ACTION:
@@ -179,6 +174,6 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
           : this.toggleColorPicker()
         break
     }
-    this.notesService.setNotes(this.notes)
+    // this.notesService.setNotes(this.notesToDisplay)
   }
 }

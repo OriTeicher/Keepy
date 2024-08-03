@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
 import { Note } from '../_interfaces/Note'
+import { HttpClient } from '@angular/common/http'
 
 @Injectable({
   providedIn: 'root',
 })
 export class NoteService {
+  private BASE_URL = 'http://localhost:5173/api'
   private notesSubject = new BehaviorSubject<Note[]>([])
   private removedNotesSubject = new BehaviorSubject<Note[]>([])
   private loadingSubject = new BehaviorSubject<boolean>(false)
@@ -13,15 +15,20 @@ export class NoteService {
   removedNotes$ = this.removedNotesSubject.asObservable()
   loading$ = this.loadingSubject.asObservable()
   originalNotes: Note[] = []
+  constructor(private http: HttpClient) {}
+
+  fetchNotes(): Observable<Note[]> {
+    return this.http.get<Note[]>(`${this.BASE_URL}/notes`)
+  }
 
   getNoteById(noteId: string): Note | undefined {
     return this.notesSubject.value.find((note) => noteId === note._id)
   }
 
-  setNotes(notes: Note[]): void {
-    this.notesSubject.next(notes)
-    this.originalNotes = [...notes]
-  }
+  // setNotes(notes: Note[]): void {
+  //   this.notesSubject.next(notes)
+  //   this.originalNotes = [...notes]
+  // }
 
   addNote(noteToAdd: Note): void {
     const currentNotes = [...this.notesSubject.value]

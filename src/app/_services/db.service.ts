@@ -15,9 +15,8 @@ export const dbService = {
 
 async function loadNotes() {
   try {
-    const result = await pool.query('SELECT * FROM notes')
-    console.log('result FROM DB.SERVICE', result)
-    return result.rows
+    const res = await pool.query('SELECT * FROM notes')
+    return res.rows
   } catch (err) {
     console.error(err)
     throw new Error('Failed to load notes')

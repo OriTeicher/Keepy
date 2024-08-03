@@ -12,23 +12,13 @@ export function app(): express.Express {
   const serverDistFolder = dirname(fileURLToPath(import.meta.url))
   const browserDistFolder = resolve(serverDistFolder, '../browser')
   const indexHtml = join(serverDistFolder, 'index.server.html')
-  const pool = new Pool({
-    user: 'note_db_dx96_user',
-    host: 'dpg-cqf0loogph6c73b314i0-a',
-    database: 'note_db_dx96',
-    password: '0u7voGulrA6ubWaH6VEXlOvd3XT31DUI',
-    port: 5432,
-  })
   const commonEngine = new CommonEngine()
 
-  server.get('/api/note', async (req, res) => {
+  server.get('/api/notes', async (req, res) => {
     try {
       console.log('test')
-      await dbService.testPoolConnection()
-      res.json({ msg: 'Works' })
-      // const result = await pool.query('SELECT * FROM notes')
-      // res.json(result.rows)
-      // res.status(200).json(result)
+      const notes = await dbService.loadNotes()
+      res.json({ notes })
     } catch (err) {
       console.error('Error fetching notes:', err)
       res.status(500).json({ error: 'Failed to load notes' })
