@@ -12,7 +12,7 @@ export const routes: Routes = [
     component: NoteIndexComponent,
     children: [{ path: ':noteId', component: NoteDetailsComponent }],
   },
-  { path: 'bin', component: BinComponent },
+  { path: 'bin', component: NoteIndexComponent },
   { path: EMPTY_STR, redirectTo: '/notes', pathMatch: 'full' },
   { path: '**', redirectTo: '/notes' },
 ]

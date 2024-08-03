@@ -34,6 +34,8 @@ import { NoteService } from '../_services/note.service'
 export class SidebarComponent implements OnInit {
   @Input() isMenuOpen = true
   notesLength: number = 0
+  removedNotesLength: number = 0
+
   selectedRoute = 'notes'
   links = [
     { label: 'Notes', svg: 'heroPencilSolid', route: 'notes' },
@@ -52,6 +54,11 @@ export class SidebarComponent implements OnInit {
     this.notesService.notes$.subscribe((notes) => {
       this.notesLength = notes.length
       this.links[0].label = `Notes (${this.notesLength})`
+      this.noteRef.markForCheck()
+    })
+    this.notesService.removedNotes$.subscribe((removedNotes) => {
+      this.removedNotesLength = removedNotes.length
+      this.links[2].label = `Bin (${this.removedNotesLength})`
       this.noteRef.markForCheck()
     })
   }

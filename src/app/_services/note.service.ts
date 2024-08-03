@@ -7,8 +7,10 @@ import { Note } from '../_interfaces/Note'
 })
 export class NoteService {
   private notesSubject = new BehaviorSubject<Note[]>([])
+  private removedNotesSubject = new BehaviorSubject<Note[]>([])
   private loadingSubject = new BehaviorSubject<boolean>(false)
   notes$ = this.notesSubject.asObservable()
+  removedNotes$ = this.removedNotesSubject.asObservable()
   loading$ = this.loadingSubject.asObservable()
   originalNotes: Note[] = []
 
@@ -53,15 +55,35 @@ export class NoteService {
     )
   }
 
+  moveNoteToBin(noteId: string): void {
+    const updatedNotes = this.notesSubject.value.filter(
+      (note) => note._id !== noteId
+    )
+    this.notesSubject.next(updatedNotes)
+    const noteToRemove = this.originalNotes.find((note) => note._id === noteId)
+    if (noteToRemove) {
+      const updatedRemovedNotes = [
+        ...this.removedNotesSubject.value,
+        noteToRemove,
+      ]
+      this.removedNotesSubject.next(updatedRemovedNotes)
+      this.originalNotes = this.originalNotes.filter(
+        (note) => note._id !== noteId
+      )
+      console.log(
+        'this.removedNotesSubject.value',
+        this.removedNotesSubject.value
+      )
+    }
+  }
+
   filterNotes(searchTerm: string): void {
     this.loadingSubject.next(true)
     const lowerCaseTerm = searchTerm.toLowerCase()
     const filteredNotes = this.originalNotes.filter((note) =>
       note.title.toLowerCase().includes(lowerCaseTerm)
     )
-
     this.notesSubject.next(filteredNotes)
-
     setTimeout(() => {
       this.loadingSubject.next(false)
     }, 500)
