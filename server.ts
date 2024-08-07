@@ -15,9 +15,12 @@ export function app(): express.Express {
   const indexHtml = join(serverDistFolder, 'index.server.html')
   const commonEngine = new CommonEngine()
 
-  // Configure CORS options
   const corsOptions = {
-    origin: 'http://localhost:5173', // Adjust this to your frontend URL
+    origin: [
+      'http://localhost:5173',
+      'https://keepynotes.netlify.app/notes',
+      'https://keepynotes.netlify.app',
+    ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   }
