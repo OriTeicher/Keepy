@@ -86,10 +86,9 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
     this.subscription = await this.notesService
       .fetchNotes()
       .subscribe((res) => {
-        const { notes }: any = res
-        this.notesService.originalNotes = notes
-        this.notesToDisplay = notes
         this.cdr.markForCheck()
+        const { notes }: any = res
+        this.notesToDisplay = notes
         this.isLoadingNotes = false
       })
   }
@@ -128,7 +127,7 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
       (note) => note._id !== noteId
     )
     const removedNote = this.notesToDisplay.splice(noteToRemoveIdx, 1)[0]
-    this.notesService.moveNoteToBin(removedNote._id)
+    // this.notesService.moveNoteToBin(removedNote._id)
   }
 
   duplicateNote(noteId: string): void {

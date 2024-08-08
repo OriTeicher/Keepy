@@ -5,7 +5,6 @@ import { fileURLToPath } from 'node:url'
 import { dirname, join, resolve } from 'node:path'
 import bootstrap from './src/main.server'
 import { dbService } from './src/app/_services/db.service'
-import { Pool } from 'pg'
 import cors from 'cors'
 
 export function app(): express.Express {
@@ -52,14 +51,15 @@ export function app(): express.Express {
       res.status(500).json({ error: 'Failed to load note' })
     }
   })
+
   server.post('/api/notes', async (req, res) => {
     try {
       const noteToAdd = req.body
-      await dbService.addNote(noteToAdd.body)
-      res.json({ msg: `${noteToAdd._id} created!` })
+      await dbService.addNote(noteToAdd) // Note: Ensure noteToAdd is in the correct format for the database
+      res.json({ msg: `Note ${noteToAdd._id} created!` })
     } catch (err) {
-      console.error('Error fetching note:', err)
-      res.status(500).json({ error: 'Failed to ADD note' })
+      console.error('Error adding note:', err)
+      res.status(500).json({ error: 'Failed to add note' })
     }
   })
 
@@ -68,22 +68,22 @@ export function app(): express.Express {
       const noteToUpdate = req.body
       console.log('noteToUpdate', noteToUpdate)
       await dbService.updateNote(noteToUpdate)
-      res.json({ msg: `Note: ${noteToUpdate._id} updated!` })
+      res.json({ msg: `Note ${noteToUpdate._id} updated!` })
     } catch (err) {
-      console.error('Error fetching note:', err)
+      console.error('Error updating note:', err)
       res.status(500).json({ error: 'Failed to update note' })
     }
   })
 
   server.delete('/api/notes/:noteId', async (req, res) => {
     try {
-      const { noteId } = req.params
+      const noteId = req.params.noteId
       console.log('noteId to remove', noteId)
       await dbService.removeNoteById(noteId)
-      res.json({ msg: `Note: ${noteId} removed!` })
+      res.json({ msg: `Note ${noteId} removed!` })
     } catch (err) {
-      console.error('Error fetching note:', err)
-      res.status(500).json({ error: 'Failed to update note' })
+      console.error('Error removing note:', err)
+      res.status(500).json({ error: 'Failed to remove note' })
     }
   })
 

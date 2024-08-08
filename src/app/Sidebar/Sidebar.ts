@@ -66,12 +66,11 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.notesService.notes$.subscribe((notes) => {
       this.links[0].amount = `(${notes.length})`
-      this.noteRef.markForCheck()
     })
     this.notesService.removedNotes$.subscribe((removedNotes) => {
       this.links[2].amount = `(${removedNotes.length})`
-      this.noteRef.markForCheck()
     })
+    this.noteRef.markForCheck()
   }
 
   handleRouteSelect(route: string) {

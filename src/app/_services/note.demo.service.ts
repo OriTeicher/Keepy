@@ -66,9 +66,14 @@ export function getEmptyNote(
     title,
     txt,
     type,
-    createdAt: formatDate(new Date()),
-    color: '#FFF',
+    createdAt: formatDate(new Date(Date.now())),
+    color: _getRandomColor(),
   }
+}
+
+function _getRandomColor() {
+  const num = getRandomIntInclusive(0, 5)
+  return num % 2 === 0 ? NOTE_COLORS[num] : NOTES_GRADIENTS[num]
 }
 
 function formatDate(date: Date): string {
