@@ -24,9 +24,9 @@ export class NavbarComponent {
     private menuService: MenuService,
     private noteService: NoteService
   ) {
-    this.searchTerm$
-      .pipe(debounceTime(500))
-      .subscribe((term) => this.noteService.filterNotes(term))
+    // this.searchTerm$
+    // .pipe(debounceTime(500))
+    // .subscribe((term) => this.noteService.filterNotes(term))
   }
 
   handleToggleMenu() {

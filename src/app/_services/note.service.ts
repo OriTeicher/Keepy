@@ -15,7 +15,7 @@ export class NoteService {
   notes$ = this.notesSubject.asObservable()
   removedNotes$ = this.removedNotesSubject.asObservable()
   loading$ = this.loadingSubject.asObservable()
-  originalNotes: Note[] = []
+
   constructor(private http: HttpClient) {}
 
   fetchNotes(): Observable<Note[]> {
@@ -25,22 +25,23 @@ export class NoteService {
   getNoteById(noteId: string): Observable<Note> {
     return this.http.get<Note>(`${this.BASE_URL}/notes/${noteId}`)
   }
+
   getNoteByIdOptimistic(noteId: string): Note {
-    return this.originalNotes.find((note) => note._id === noteId)!
+    return this.notesSubject.value.find((note) => note._id === noteId)!
   }
 
   setNotes(notes: Note[]): void {
-    this.notesSubject.next(notes)
-    this.originalNotes = [...notes]
+    // this.notesSubject.next(notes)
+    // this.notesSubject.value = [...notes]
   }
 
   async addNote(noteToAdd: Note): Promise<void> {
     try {
-      await axios.post(`${this.BASE_URL}/notes`, { body: noteToAdd })
+      await axios.post(`${this.BASE_URL}/notes`, noteToAdd) // Send noteToAdd directly
       const currentNotes = [...this.notesSubject.value]
       currentNotes.unshift(noteToAdd)
       this.notesSubject.next(currentNotes)
-      this.originalNotes.unshift(noteToAdd)
+      this.notesSubject.value.unshift(noteToAdd)
     } catch (err) {
       console.error(err)
     }
@@ -54,13 +55,13 @@ export class NoteService {
     currentNotes[noteIdx] = { ...noteToUpdate }
     this.notesSubject.next(currentNotes)
 
-    const originalNoteIdx = this.originalNotes.findIndex(
+    const originalNoteIdx = this.notesSubject.value.findIndex(
       (note) => note._id === noteToUpdate._id
     )
-    this.originalNotes[originalNoteIdx] = { ...noteToUpdate }
-    this.http.put<Note>(`${this.BASE_URL}/notes/${noteToUpdate._id}`, {
-      body: noteToUpdate,
-    })
+    this.notesSubject.value[originalNoteIdx] = { ...noteToUpdate }
+    this.http
+      .put<Note>(`${this.BASE_URL}/notes/${noteToUpdate._id}`, noteToUpdate)
+      .subscribe()
   }
 
   removeNoteById(noteId: string): void {
@@ -68,45 +69,23 @@ export class NoteService {
       (note) => note._id !== noteId
     )
     this.notesSubject.next(currentNotes)
-
-    this.originalNotes = this.originalNotes.filter(
-      (note) => note._id !== noteId
-    )
   }
 
-  moveNoteToBin(noteId: string): void {
-    const updatedNotes = this.notesSubject.value.filter(
-      (note) => note._id !== noteId
-    )
-    this.notesSubject.next(updatedNotes)
-    const noteToRemove = this.originalNotes.find((note) => note._id === noteId)
-    if (noteToRemove) {
-      const updatedRemovedNotes = [
-        ...this.removedNotesSubject.value,
-        noteToRemove,
-      ]
-      this.removedNotesSubject.next(updatedRemovedNotes)
-      this.originalNotes = this.originalNotes.filter(
-        (note) => note._id !== noteId
-      )
-    }
-  }
+  // filterNotes(searchTerm: string): void {
+  //   this.loadingSubject.next(true)
+  //   const lowerCaseTerm = searchTerm.toLowerCase()
+  //   const filteredNotes = this.originalNotes.filter((note) =>
+  //     note.title.toLowerCase().includes(lowerCaseTerm)
+  //   )
+  //   this.notesSubject.next(filteredNotes)
+  //   setTimeout(() => {
+  //     this.loadingSubject.next(false)
+  //   }, 500)
+  // }
 
-  filterNotes(searchTerm: string): void {
-    this.loadingSubject.next(true)
-    const lowerCaseTerm = searchTerm.toLowerCase()
-    const filteredNotes = this.originalNotes.filter((note) =>
-      note.title.toLowerCase().includes(lowerCaseTerm)
-    )
-    this.notesSubject.next(filteredNotes)
-    setTimeout(() => {
-      this.loadingSubject.next(false)
-    }, 500)
-  }
-
-  getFilteredNotes(searchTerm: string): Note[] {
-    return this.originalNotes.filter((note) =>
-      note.title.toLowerCase().startsWith(searchTerm.toLowerCase())
-    )
-  }
+  // getFilteredNotes(searchTerm: string): Note[] {
+  //   return this.originalNotes.filter((note) =>
+  //     note.title.toLowerCase().startsWith(searchTerm.toLowerCase())
+  //   )
+  // }
 }
