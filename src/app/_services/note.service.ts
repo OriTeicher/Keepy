@@ -25,7 +25,6 @@ export class NoteService {
     return this.http.get<Note>(`${this.BASE_URL}/notes/${noteId}`)
   }
   getNoteByIdOptimistic(noteId: string): Note {
-    console.log('this.originalNotes', this.originalNotes)
     return this.originalNotes.find((note) => note._id === noteId)!
   }
 
@@ -39,6 +38,7 @@ export class NoteService {
     currentNotes.unshift(noteToAdd)
     this.notesSubject.next(currentNotes)
     this.originalNotes.unshift(noteToAdd)
+    this.http.post<Note>(`${this.BASE_URL}/notes`, { body: noteToAdd })
   }
 
   updateNote(noteToUpdate: Note): void {
@@ -53,6 +53,9 @@ export class NoteService {
       (note) => note._id === noteToUpdate._id
     )
     this.originalNotes[originalNoteIdx] = { ...noteToUpdate }
+    this.http.put<Note>(`${this.BASE_URL}/notes/${noteToUpdate._id}`, {
+      body: noteToUpdate,
+    })
   }
 
   removeNoteById(noteId: string): void {

@@ -89,6 +89,13 @@
 
 // ?note-index
 .note-index {
+  .date {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 5px;
+    font-size: 0.8em;
+  }
   position: relative;
   max-width: 100%;
   display: grid;

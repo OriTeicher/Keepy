@@ -65,15 +65,22 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
   private subscription!: Subscription
   private routeSubscription!: Subscription
 
+  // ? ** backend ** ?
   ngOnInit(): void {
     this.isLoadingNotes = true
     this.routeSubscription = this.route.url.subscribe((segments) => {
-      const isBinRoute = segments.some(
-        (segment) => segment.path === this.BIN_ROUTE
-      )
-      isBinRoute ? this.loadRemovedNotes() : this.loadRegularNotes()
+      this.loadRegularNotes()
+      // const isBinRoute = segments.some(
+      //   (segment) => segment.path === this.BIN_ROUTE
+      // )
+      // isBinRoute ? this.loadRemovedNotes() : this.loadRegularNotes()
     })
   }
+
+  // ? ** frontend ** ?
+  // ngOnInit(): void {
+  //   this.loadDemoNotes()
+  // }
 
   loadRegularNotes(): void {
     this.isLoadingNotes = true
@@ -86,16 +93,8 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
     })
   }
 
-  loadRemovedNotes(): void {
-    console.log('removed notes')
-    // this.isLoadingNotes = true
-    // this.subscription = this.notesService
-    //   .fetchRemovedNotes()
-    //   .subscribe((notes) => {
-    //     this.notes = notes
-    //     this.isLoadingNotes = false
-    //     this.cdr.markForCheck()
-    //   })
+  loadDemoNotes(): void {
+    this.notesToDisplay = noteService.getDemoNotes(5)
   }
 
   ngOnDestroy(): void {
@@ -138,7 +137,7 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
   paintNote(color: string, noteId: string): void {
     const noteIdx = this.notesToDisplay.findIndex((note) => note._id === noteId)
     this.notesToDisplay[noteIdx].color = color
-    // this.notesService.setNotes(this.notesToDisplay)
+    this.notesService.updateNote(this.notesToDisplay[noteIdx])
   }
 
   toggleColorPicker(): void {
@@ -176,6 +175,18 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
           : this.toggleColorPicker()
         break
     }
-    // this.notesService.setNotes(this.notesToDisplay)
+    this.notesService.setNotes(this.notesToDisplay)
   }
 }
+
+// loadRemovedNotes(): void {
+//   console.log('removed notes')
+//   this.isLoadingNotes = true
+//   this.subscription = this.notesService
+//     .fetchRemovedNotes()
+//     .subscribe((notes) => {
+//       this.notes = notes
+//       this.isLoadingNotes = false
+//       this.cdr.markForCheck()
+//     })
+// }

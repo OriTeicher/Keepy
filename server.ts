@@ -18,15 +18,16 @@ export function app(): express.Express {
   const corsOptions = {
     origin: [
       'http://localhost:5173',
+      'http://localhost:4200',
       'https://keepynotes.netlify.app/notes',
       'https://keepynotes.netlify.app',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   }
-
-  // Use CORS middleware
   server.use(cors(corsOptions))
+  server.use(express.json())
+
   // ? ** NOTES ROUTES ** ?
   server.get('/api/notes', async (req, res) => {
     try {
@@ -49,6 +50,28 @@ export function app(): express.Express {
     } catch (err) {
       console.error('Error fetching note:', err)
       res.status(500).json({ error: 'Failed to load note' })
+    }
+  })
+  server.post('/api/notes', async (req, res) => {
+    try {
+      const noteToAdd = req.body
+      await dbService.addNote(noteToAdd)
+      res.json({ msg: `${noteToAdd._id} created!` })
+    } catch (err) {
+      console.error('Error fetching note:', err)
+      res.status(500).json({ error: 'Failed to ADD note' })
+    }
+  })
+
+  server.put('/api/notes/:noteId', async (req, res) => {
+    try {
+      const noteToUpdate = req.body
+      console.log('noteToUpdate', noteToUpdate)
+      await dbService.updateNote(noteToUpdate)
+      res.json({ msg: `${noteToUpdate._id} updated!` })
+    } catch (err) {
+      console.error('Error fetching note:', err)
+      res.status(500).json({ error: 'Failed to update note' })
     }
   })
 

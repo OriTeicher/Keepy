@@ -28,19 +28,20 @@ export class NoteDetailsComponent implements OnInit {
     this.route.paramMap.subscribe((paramMap) => {
       this.noteId = paramMap.get('noteId')!
       this.noteToEdit = this.noteService.getNoteByIdOptimistic(this.noteId)
-      console.log('this.noteToEdit', this.noteToEdit)
+      console.log('this.noteId', this.noteId)
     })
   }
 
   onUpdateNote(ev: Event) {
     ev.preventDefault()
     if (!this.noteToEdit) return
-    // const form = ev.target as HTMLFormElement
-    // const titleInput = form.elements.namedItem('title') as HTMLInputElement
-    // const txtInput = form.elements.namedItem('txt') as HTMLTextAreaElement
-    // this.noteToEdit.title = titleInput.value
-    // this.noteToEdit.txt = txtInput.value
-    // this.noteService.updateNote(this.noteToEdit)
+    const form = ev.target as HTMLFormElement
+    const titleInput = form.elements.namedItem('title') as HTMLInputElement
+    const txtInput = form.elements.namedItem('txt') as HTMLTextAreaElement
+    this.noteToEdit.title = titleInput.value
+    this.noteToEdit.txt = txtInput.value
+    console.log('this.noteToEdit front', this.noteToEdit)
+    this.noteService.updateNote(this.noteToEdit)
     this.router.navigate(['notes'])
   }
 
