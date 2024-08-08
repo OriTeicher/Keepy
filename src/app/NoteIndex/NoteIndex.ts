@@ -81,16 +81,17 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
   //   this.loadDemoNotes()
   // }
 
-  loadRegularNotes(): void {
+  async loadRegularNotes(): Promise<void> {
     this.isLoadingNotes = true
-    this.subscription = this.notesService.fetchNotes().subscribe((res) => {
-      const { notes }: any = res
-      console.log('notes', notes)
-      this.notesService.originalNotes = notes
-      this.notesToDisplay = notes
-      this.isLoadingNotes = false
-      this.cdr.markForCheck()
-    })
+    this.subscription = await this.notesService
+      .fetchNotes()
+      .subscribe((res) => {
+        const { notes }: any = res
+        this.notesService.originalNotes = notes
+        this.notesToDisplay = notes
+        this.cdr.markForCheck()
+        this.isLoadingNotes = false
+      })
   }
 
   loadDemoNotes(): void {
