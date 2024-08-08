@@ -7,7 +7,6 @@ import {
   ChangeDetectorRef,
 } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import axios from 'axios'
 import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 import { Subscription } from 'rxjs'
 
@@ -68,7 +67,7 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
   // ? ** backend ** ?
   ngOnInit(): void {
     this.isLoadingNotes = true
-    this.routeSubscription = this.route.url.subscribe((segments) => {
+    this.routeSubscription = this.route.url.subscribe(() => {
       this.loadRegularNotes()
       // const isBinRoute = segments.some(
       //   (segment) => segment.path === this.BIN_ROUTE
@@ -86,6 +85,7 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
     this.isLoadingNotes = true
     this.subscription = this.notesService.fetchNotes().subscribe((res) => {
       const { notes }: any = res
+      console.log('notes', notes)
       this.notesService.originalNotes = notes
       this.notesToDisplay = notes
       this.isLoadingNotes = false
@@ -113,10 +113,13 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
   addUpadteNote(noteId?: string, noteToAdd?: Note): void {
     if (noteId) {
       this.notesToDisplay.splice(this.getNoteIdxById(noteId), 1, noteToAdd!)
+      this.notesService.updateNote(noteToAdd!)
     } else {
-      this.notesToDisplay.unshift({ ...noteToAdd!, _id: makeId() })
+      this.notesToDisplay.unshift({ ...noteToAdd! })
+      this.notesService.addNote(noteToAdd!)
     }
-    // this.notesService.setNotes(this.notesToDisplay)
+
+    this.loadRegularNotes()
   }
 
   removeNote(noteId: string): void {

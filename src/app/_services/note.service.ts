@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { Note } from '../_interfaces/Note'
 import { HttpClient } from '@angular/common/http'
+import axios from 'axios'
 
 @Injectable({
   providedIn: 'root',
@@ -33,12 +34,16 @@ export class NoteService {
     this.originalNotes = [...notes]
   }
 
-  addNote(noteToAdd: Note): void {
-    const currentNotes = [...this.notesSubject.value]
-    currentNotes.unshift(noteToAdd)
-    this.notesSubject.next(currentNotes)
-    this.originalNotes.unshift(noteToAdd)
-    this.http.post<Note>(`${this.BASE_URL}/notes`, { body: noteToAdd })
+  async addNote(noteToAdd: Note): Promise<void> {
+    try {
+      await axios.post(`${this.BASE_URL}/notes`, { body: noteToAdd })
+      const currentNotes = [...this.notesSubject.value]
+      currentNotes.unshift(noteToAdd)
+      this.notesSubject.next(currentNotes)
+      this.originalNotes.unshift(noteToAdd)
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   updateNote(noteToUpdate: Note): void {

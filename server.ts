@@ -32,7 +32,8 @@ export function app(): express.Express {
   server.get('/api/notes', async (req, res) => {
     try {
       const notes = await dbService.loadNotes()
-      res.json({ notes })
+      if (notes) res.json({ notes })
+      else res.status(404).json({ error: 'Notes not found' })
     } catch (err) {
       console.error('Error fetching notes:', err)
       res.status(500).json({ error: 'Failed to load notes' })
@@ -44,9 +45,8 @@ export function app(): express.Express {
       const noteId = req.params.noteId
       console.log('noteId', noteId)
       const note = await dbService.loadNoteById(noteId)
-      note
-        ? res.json({ note })
-        : res.status(404).json({ error: 'Note not found' })
+      if (note) res.json({ note })
+      else res.status(404).json({ error: 'Note not found' })
     } catch (err) {
       console.error('Error fetching note:', err)
       res.status(500).json({ error: 'Failed to load note' })
@@ -55,7 +55,7 @@ export function app(): express.Express {
   server.post('/api/notes', async (req, res) => {
     try {
       const noteToAdd = req.body
-      await dbService.addNote(noteToAdd)
+      await dbService.addNote(noteToAdd.body)
       res.json({ msg: `${noteToAdd._id} created!` })
     } catch (err) {
       console.error('Error fetching note:', err)
@@ -68,7 +68,19 @@ export function app(): express.Express {
       const noteToUpdate = req.body
       console.log('noteToUpdate', noteToUpdate)
       await dbService.updateNote(noteToUpdate)
-      res.json({ msg: `${noteToUpdate._id} updated!` })
+      res.json({ msg: `Note: ${noteToUpdate._id} updated!` })
+    } catch (err) {
+      console.error('Error fetching note:', err)
+      res.status(500).json({ error: 'Failed to update note' })
+    }
+  })
+
+  server.delete('/api/notes/:noteId', async (req, res) => {
+    try {
+      const { noteId } = req.params
+      console.log('noteId to remove', noteId)
+      await dbService.removeNoteById(noteId)
+      res.json({ msg: `Note: ${noteId} removed!` })
     } catch (err) {
       console.error('Error fetching note:', err)
       res.status(500).json({ error: 'Failed to update note' })

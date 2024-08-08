@@ -1,0 +1,4 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+ALTER TABLE notes
+ALTER COLUMN _id SET DEFAULT uuid_generate_v4();

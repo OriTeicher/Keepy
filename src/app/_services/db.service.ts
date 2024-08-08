@@ -1,6 +1,6 @@
 import { Pool } from 'pg'
 import { Note } from '../_interfaces/Note'
-import { Observable } from 'rxjs'
+import { makeId } from './util.service'
 
 const pool = new Pool({
   ssl: true,
@@ -16,12 +16,23 @@ export const dbService = {
   loadNoteById,
   addNote,
   updateNote,
+  removeNoteById,
 }
 
 async function loadNotes(): Promise<Note[]> {
   try {
     const res = await pool.query('SELECT * FROM notes')
     return res.rows
+  } catch (err) {
+    console.error(err)
+    throw new Error('Failed to load notes')
+  }
+}
+async function removeNoteById(noteId: string): Promise<void> {
+  try {
+    console.log('noteId FROM DB SERVICE', noteId)
+    const query = `DELETE FROM notes WHERE _id = $1 RETURNING *;`
+    await pool.query(query, [noteId])
   } catch (err) {
     console.error(err)
     throw new Error('Failed to load notes')
@@ -40,16 +51,21 @@ async function loadNoteById(noteId: string): Promise<Note> {
 }
 
 async function addNote(noteToAdd: Note) {
-  console.log('noteToAdd', noteToAdd)
-  const { _id, title, txt, color, createdAt } = noteToAdd
-
+  const { title, txt, color, type } = noteToAdd
   try {
     const query = `
-      INSERT INTO notes (_id, title, txt, color, "createdAt")
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO notes (_id ,title, txt, color, "createdAt", type)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;
     `
-    const res = await pool.query(query, [_id, title, txt, color, createdAt])
+    const res = await pool.query(query, [
+      makeId(),
+      title,
+      txt,
+      color,
+      new Date(Date.now()).toISOString(),
+      type,
+    ])
     console.log('res ADDED NOTE AFTER DB', res)
   } catch (err) {
     console.error(err)
@@ -57,7 +73,7 @@ async function addNote(noteToAdd: Note) {
   }
 }
 async function updateNote(noteToUpdate: Note) {
-  const { _id, title, txt, color, createdAt } = noteToUpdate
+  const { _id, title, txt, color } = noteToUpdate
 
   try {
     const query = `
@@ -67,7 +83,7 @@ async function updateNote(noteToUpdate: Note) {
       RETURNING *;
     `
 
-    const res = await pool.query(query, [title, txt, color, createdAt, _id])
+    const res = await pool.query(query, [title, txt, color, Date.now(), _id])
     console.log('🚀 ~ updateNote ~ const:', res.rows[0])
   } catch (err) {
     console.error(err)
