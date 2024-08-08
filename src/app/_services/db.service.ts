@@ -16,12 +16,23 @@ export const dbService = {
   loadNoteById,
   addNote,
   updateNote,
+  removeNoteById,
 }
 
 async function loadNotes(): Promise<Note[]> {
   try {
     const res = await pool.query('SELECT * FROM notes')
     return res.rows
+  } catch (err) {
+    console.error(err)
+    throw new Error('Failed to load notes')
+  }
+}
+async function removeNoteById(noteId: string): Promise<void> {
+  try {
+    console.log('noteId FROM DB SERVICE', noteId)
+    const query = `DELETE FROM notes WHERE _id = $1 RETURNING *;`
+    await pool.query(query, [noteId])
   } catch (err) {
     console.error(err)
     throw new Error('Failed to load notes')
