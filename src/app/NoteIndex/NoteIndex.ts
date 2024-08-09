@@ -20,7 +20,7 @@ import {
   REMOVE_NOTE_ACTION,
 } from '../_services/consts.service'
 
-import { Note } from '../_interfaces/Note'
+import { Note } from '../_interfaces/note'
 import { NoteAction } from '../_interfaces/NoteAction'
 
 import { Loader } from '../Loader/Loader'

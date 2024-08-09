@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { ADD_UPDATE_NOTE_ACTION, EMPTY_STR } from '../_services/consts.service'
-import { Note } from '../_interfaces/Note'
+import { Note } from '../_interfaces/note'
 import { getEmptyNote, noteService } from '../_services/note.demo.service'
 import { NoteAction } from '../_interfaces/NoteAction'
 

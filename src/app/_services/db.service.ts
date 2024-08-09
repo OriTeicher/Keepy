@@ -1,5 +1,5 @@
 import { Pool } from 'pg'
-import { Note } from '../_interfaces/Note'
+import { Note } from '../_interfaces/note'
 import { makeId } from './util.service'
 
 const pool = new Pool({
@@ -51,11 +51,11 @@ async function loadNoteById(noteId: string): Promise<Note> {
 }
 
 async function addNote(noteToAdd: Note) {
-  const { title, txt, color } = noteToAdd
+  const { title, txt, color, type } = noteToAdd
   try {
     const query = `
-      INSERT INTO notes (_id ,title, txt, color, "createdAt")
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO notes (_id ,title, txt, color, "createdAt", type)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;
     `
     const res = await pool.query(query, [
@@ -64,6 +64,7 @@ async function addNote(noteToAdd: Note) {
       txt,
       color,
       new Date(Date.now()).toISOString(),
+      type,
     ])
     console.log('res ADDED NOTE AFTER DB', res)
   } catch (err) {

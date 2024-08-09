@@ -1,4 +1,4 @@
-import { Note } from '../_interfaces/Note'
+import { Note } from '../_interfaces/note'
 import { getRandomIntInclusive, makeId, makeSentence } from './util.service'
 
 export const noteService = {
