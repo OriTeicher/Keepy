@@ -51,11 +51,11 @@ async function loadNoteById(noteId: string): Promise<Note> {
 }
 
 async function addNote(noteToAdd: Note) {
-  const { title, txt, color, type } = noteToAdd
+  const { title, txt, color } = noteToAdd
   try {
     const query = `
-      INSERT INTO notes (_id ,title, txt, color, "createdAt", type)
-      VALUES ($1, $2, $3, $4, $5, $6)
+      INSERT INTO notes (_id ,title, txt, color, "createdAt")
+      VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
     `
     const res = await pool.query(query, [
@@ -64,7 +64,6 @@ async function addNote(noteToAdd: Note) {
       txt,
       color,
       new Date(Date.now()).toISOString(),
-      type,
     ])
     console.log('res ADDED NOTE AFTER DB', res)
   } catch (err) {
