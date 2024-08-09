@@ -3,5 +3,6 @@ export interface Note {
   title: string
   txt: string
   color: string
+  type: string
   createdAt: string
 }
