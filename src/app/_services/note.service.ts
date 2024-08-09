@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { BehaviorSubject, Observable } from 'rxjs'
-import { Note } from '../_interfaces/note'
+import { Note } from '../_interfaces/NoteInterface.ts'
 import { HttpClient } from '@angular/common/http'
 import axios from 'axios'
 
