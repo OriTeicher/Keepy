@@ -20,6 +20,7 @@ export function app(): express.Express {
       'http://localhost:4200',
       'https://keepynotes.netlify.app/notes',
       'https://keepynotes.netlify.app',
+      'https://keepy-oo06l874o-oriteichers-projects.vercel.app/notes',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
