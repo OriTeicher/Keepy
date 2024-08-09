@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core'
 import { ActivatedRoute, Router, RouterModule } from '@angular/router'
-import { Note } from '../_interfaces/NoteInterface.ts'
+import { Note } from '../_interfaces/NoteInterface'
 import { NoteService } from '../_services/note.service'
 import { FormsModule } from '@angular/forms'
 import { Observable } from 'rxjs'

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { NOTES_GRADIENTS, NOTE_COLORS } from '../_services/note.demo.service'
 import { COLOR_NOTE_ACTION, EMPTY_STR } from '../_services/consts.service'
 import { NoteAction } from '../_interfaces/NoteAction'
-import { Note } from '../_interfaces/NoteInterface.ts'
+import { Note } from '../_interfaces/NoteInterface'
 
 @Component({
   selector: 'color-picker',

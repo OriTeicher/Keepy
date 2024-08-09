@@ -1,5 +1,5 @@
 import { Pool } from 'pg'
-import { Note } from '../_interfaces/NoteInterface.ts'
+import { Note } from '../_interfaces/NoteInterface'
 import { makeId } from './util.service'
 
 const pool = new Pool({
