@@ -75,7 +75,6 @@ export class NoteIndexComponent implements OnInit, OnDestroy {
       // isBinRoute ? this.loadRemovedNotes() : this.loadRegularNotes()
     })
   }
-
   // ? ** frontend ** ?
   // ngOnInit(): void {
   //   this.loadDemoNotes()
