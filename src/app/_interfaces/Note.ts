@@ -4,4 +4,5 @@ export interface Note {
   txt: string
   color: string
   createdAt: string
+type: string
 }
