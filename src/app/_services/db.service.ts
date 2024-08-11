@@ -3,7 +3,9 @@ import { Note } from '../_interfaces/NoteInterface'
 import { makeId } from './util.service'
 
 const pool = new Pool({
-  ssl: true,
+  ssl: {
+    rejectUnauthorized: false,
+  },
   connectionString:
     'postgresql://note_db_dx96_user:0u7voGulrA6ubWaH6VEXlOvd3XT31DUI@dpg-cqf0loogph6c73b314i0-a.frankfurt-postgres.render.com/note_db_dx96',
 })
