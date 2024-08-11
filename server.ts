@@ -1,6 +1,7 @@
 import { APP_BASE_HREF } from '@angular/common'
 import { CommonEngine } from '@angular/ssr'
 import express from 'express'
+import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { dirname, join, resolve } from 'node:path'
 import bootstrap from './src/main.server'
@@ -9,22 +10,28 @@ import cors from 'cors'
 
 export function app(): express.Express {
   const server = express()
+  const __dirname = dirname(fileURLToPath(import.meta.url))
   const serverDistFolder = dirname(fileURLToPath(import.meta.url))
   const browserDistFolder = resolve(serverDistFolder, '../browser')
   const indexHtml = join(serverDistFolder, 'index.server.html')
   const commonEngine = new CommonEngine()
 
-  const corsOptions = {
-    origin: [
-      'http://localhost:5173',
-      'http://localhost:4200',
-      'https://keepynotes.netlify.app/notes',
-    ],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-  }
-  server.use(cors(corsOptions))
   server.use(express.json())
+  server.use(express.static('dist'))
+  if (process.env['NODE_ENV'] === 'production') {
+    server.use(express.static(path.resolve(__dirname, 'public')))
+  } else {
+    const corsOptions = {
+      origin: [
+        'http://localhost:5173',
+        'http://localhost:4200',
+        'https://keepynotes.netlify.app/notes',
+      ],
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      credentials: true,
+    }
+    server.use(cors(corsOptions))
+  }
 
   // ? ** NOTES ROUTES ** ?
   server.get('/api/notes', async (req, res) => {

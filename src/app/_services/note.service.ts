@@ -8,7 +8,8 @@ import axios from 'axios'
   providedIn: 'root',
 })
 export class NoteService {
-  private BASE_URL = 'http://keepy.onrender.com/api'
+  private BASE_URL =
+    process.env['NODE_ENV'] === 'production' ? '/api' : '//localhost:5173/api'
   private notesSubject = new BehaviorSubject<Note[]>([])
   private removedNotesSubject = new BehaviorSubject<Note[]>([])
   private loadingSubject = new BehaviorSubject<boolean>(false)
@@ -37,7 +38,7 @@ export class NoteService {
 
   async addNote(noteToAdd: Note): Promise<void> {
     try {
-      await axios.post(`${this.BASE_URL}/notes`, noteToAdd) // Send noteToAdd directly
+      await axios.post(`${this.BASE_URL}/notes`, noteToAdd)
       const currentNotes = [...this.notesSubject.value]
       currentNotes.unshift(noteToAdd)
       this.notesSubject.next(currentNotes)
