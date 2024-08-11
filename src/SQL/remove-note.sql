@@ -8,6 +8,6 @@ WHERE _id IN (
   SELECT _id
   FROM notes
   ORDER BY _id DESC
-  LIMIT 20
+  LIMIT 50
 )
 RETURNING *;

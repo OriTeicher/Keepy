@@ -8,7 +8,7 @@ import axios from 'axios'
   providedIn: 'root',
 })
 export class NoteService {
-  private BASE_URL = 'http://localhost:5173/api'
+  private BASE_URL = 'http://keepy.onrender.com/api'
   private notesSubject = new BehaviorSubject<Note[]>([])
   private removedNotesSubject = new BehaviorSubject<Note[]>([])
   private loadingSubject = new BehaviorSubject<boolean>(false)
