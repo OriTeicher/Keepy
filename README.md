@@ -1,4 +1,4 @@
-# Keepy - Google keep clone - https://keepynotes.netlify.app/notes
+# Keepy - Google keep clone - [https://keepynotes.netlify.app/notes](https://oriteicher.github.io/KeepyNotes-frontend/notes)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
 
